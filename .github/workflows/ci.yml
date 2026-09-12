@@ -1,0 +1,49 @@
+name: API Test Suite
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install and start the mock server
+        working-directory: mock-server
+        run: |
+          npm install
+          nohup node server.js > server.log 2>&1 &
+          for i in $(seq 1 20); do
+            curl -sf -X POST http://localhost:3000/v1/auth/login \
+              -H "Content-Type: application/json" -d '{"username":"ci","apiKey":"ci"}' \
+              && echo "mock server is up" && break
+            sleep 1
+          done
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run fast (smoke + non-slow) suite
+        run: pytest -m "not slow" --html=reports/report.html --self-contained-html
+
+      - name: Run full suite (includes async/slow tests)
+        run: pytest --html=reports/report-full.html --self-contained-html
+
+      - name: Upload HTML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-html-reports
+          path: reports/*.html

@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+reports/
+.env
+mock-server/node_modules/
+mock-server/package-lock.json
+.DS_Store
+.idea/
