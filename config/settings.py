@@ -68,6 +68,7 @@ class Settings:
     order_poll_timeout_seconds: float
     export_poll_interval_seconds: float
     export_poll_timeout_seconds: float
+    cancelled_observation_seconds: float
 
     @classmethod
     def load(cls, env: str = None) -> "Settings":
@@ -114,6 +115,7 @@ class Settings:
             order_poll_timeout_seconds=_get_float("order_poll_timeout_seconds", "25"),
             export_poll_interval_seconds=_get_float("export_poll_interval_seconds", "2"),
             export_poll_timeout_seconds=_get_float("export_poll_timeout_seconds", "75"),
+            cancelled_observation_seconds=_get_float("cancelled_observation_seconds", "18"),
         )
         logger.debug("Loaded settings for env=%s from %s", settings.env, path)
         return settings

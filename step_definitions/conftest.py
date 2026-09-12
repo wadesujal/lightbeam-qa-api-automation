@@ -1,8 +1,15 @@
-"""Per-test fixtures: settings and the three resource clients.
+"""Per-test fixtures: settings, the three authenticated resource clients,
+and their unauthenticated counterparts used by the 401 tests.
 
-auth_token logs in once per session and is reused everywhere (any
+`auth_token` logs in once per session and is reused everywhere (any
 non-empty username/apiKey is accepted by the mock server -- see
-TEST_PLAN.md -- so there's nothing gained by logging in per test)."""
+TEST_PLAN.md -- so there's nothing gained by logging in per test).
+
+Every client fixture yields and then closes its `requests.Session`, so a
+full suite run doesn't leak pooled sockets or emit ResourceWarnings.
+"""
+
+from collections.abc import Iterator
 
 import pytest
 
@@ -18,9 +25,11 @@ def settings() -> Settings:
 
 
 @pytest.fixture(scope="session")
-def auth_client(settings) -> AuthClient:
+def auth_client(settings) -> Iterator[AuthClient]:
     """An unauthenticated client for the `/auth/login` endpoint itself."""
-    return AuthClient(settings=settings)
+    client = AuthClient(settings=settings)
+    yield client
+    client.close()
 
 
 @pytest.fixture(scope="session")
@@ -36,12 +45,34 @@ def auth_token(auth_client) -> str:
 
 
 @pytest.fixture
-def order_client(settings, auth_token) -> OrderClient:
+def order_client(settings, auth_token) -> Iterator[OrderClient]:
     """A fresh, authenticated `OrderClient` for each test."""
-    return OrderClient(settings=settings, token=auth_token)
+    client = OrderClient(settings=settings, token=auth_token)
+    yield client
+    client.close()
 
 
 @pytest.fixture
-def export_client(settings, auth_token) -> ExportClient:
+def export_client(settings, auth_token) -> Iterator[ExportClient]:
     """A fresh, authenticated `ExportClient` for each test."""
-    return ExportClient(settings=settings, token=auth_token)
+    client = ExportClient(settings=settings, token=auth_token)
+    yield client
+    client.close()
+
+
+@pytest.fixture
+def anonymous_order_client(settings) -> Iterator[OrderClient]:
+    """An `OrderClient` with no bearer token, for the 401 enforcement
+    tests. A shared fixture rather than an inline construction per test so
+    the session is always closed and the intent is obvious at the call site."""
+    client = OrderClient(settings=settings, token=None)
+    yield client
+    client.close()
+
+
+@pytest.fixture
+def anonymous_export_client(settings) -> Iterator[ExportClient]:
+    """An `ExportClient` with no bearer token, for the 401 enforcement tests."""
+    client = ExportClient(settings=settings, token=None)
+    yield client
+    client.close()

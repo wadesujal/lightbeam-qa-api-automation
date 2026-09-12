@@ -19,10 +19,12 @@ class SoftAssert:
 
     step_log: "StepLog" = None  # type: ignore[name-defined]
     _failures: list = field(default_factory=list)
+    _checks_run: int = 0
 
     def check(self, condition: bool, label: str) -> bool:
         """Record `condition` under `label`, without raising immediately.
         Returns `condition` unchanged so it can be used inline if needed."""
+        self._checks_run += 1
         if condition:
             if self.step_log:
                 self.step_log.record(label, "passed")
@@ -40,9 +42,20 @@ class SoftAssert:
             f"{label}: expected {expected!r}, got {actual!r}",
         )
 
-    def assert_all(self) -> None:
+    def assert_all(self, minimum_checks: int = 1) -> None:
         """Raise `AssertionError` listing every failed check recorded so
-        far, if any. Call this once, at the end of the test."""
+        far, if any. Call this once, at the end of the test.
+
+        Also fails when fewer than `minimum_checks` checks were recorded.
+        Without that guard a test whose assertions were skipped -- a
+        parametrized case that matched no branch, an early `return` -- would
+        record nothing and report as passed, which is the most dangerous
+        outcome a test suite can produce."""
+        if self._checks_run < minimum_checks:
+            raise AssertionError(
+                f"Vacuous test: {self._checks_run} soft assertion(s) recorded, "
+                f"expected at least {minimum_checks}. Nothing was actually verified."
+            )
         if self._failures:
             joined = "\n  - ".join(self._failures)
             raise AssertionError(f"{len(self._failures)} soft assertion(s) failed:\n  - {joined}")

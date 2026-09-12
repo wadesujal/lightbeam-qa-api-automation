@@ -3,17 +3,16 @@ totalAmount must equal sum(quantity * unitPrice), not just for the
 hand-picked examples in orders_create.yaml.
 
 Adopted from the reference framework's use of Hypothesis to check
-invariants across input space that hand-written cases can't cover. Uses
-pytest.importorskip so a missing `hypothesis` install (e.g. in a sandboxed
-environment with no package-registry access) skips this file cleanly
-instead of breaking collection for the rest of the suite -- once
-`pip install -r requirements.txt` runs normally this test runs for real.
+invariants across input space that hand-written cases can't cover.
+`hypothesis` is a pinned entry in requirements.txt, so it is imported
+normally at module scope -- an earlier `pytest.importorskip` guard was a
+workaround for a sandbox with no package index, and it had the side effect
+of hiding a genuinely missing dependency behind a silent skip.
 """
 
 import pytest
-
-hypothesis = pytest.importorskip("hypothesis")
-from hypothesis import HealthCheck, given, settings as hyp_settings
+from hypothesis import HealthCheck, given
+from hypothesis import settings as hyp_settings
 from hypothesis import strategies as st
 
 from utilities.payload_builders import compute_expected_total, create_order_payload
@@ -27,6 +26,11 @@ item_strategy = st.fixed_dictionaries({
 
 @pytest.mark.invariant
 @pytest.mark.property
+@pytest.mark.title(
+    "Validate that totalAmount equals the sum of quantity x unitPrice for any generated item list"
+)
+# The Hypothesis decorators stay innermost: markers must be applied to the
+# wrapper pytest collects, not to the raw function `given()` wraps.
 @hyp_settings(max_examples=25, suppress_health_check=[HealthCheck.function_scoped_fixture], deadline=None)
 @given(items=st.lists(item_strategy, min_size=1, max_size=8))
 def test_total_amount_holds_for_any_item_list(order_client, items):

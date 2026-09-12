@@ -14,23 +14,37 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: npm
+          cache-dependency-path: mock-server/package-lock.json
 
       - name: Install and start the mock server
         working-directory: mock-server
         run: |
-          npm install
+          # `npm ci` (not `npm install`) so CI installs the exact, committed
+          # dependency tree and can never be broken by a fresh upstream release.
+          npm ci
           nohup node server.js > server.log 2>&1 &
           for i in $(seq 1 20); do
-            curl -sf -X POST http://localhost:3000/v1/auth/login \
-              -H "Content-Type: application/json" -d '{"username":"ci","apiKey":"ci"}' \
-              && echo "mock server is up" && break
+            if curl -sf -X POST http://localhost:3000/v1/auth/login \
+              -H "Content-Type: application/json" -d '{"username":"ci","apiKey":"ci"}' > /dev/null; then
+              echo "mock server is up after ${i}s"
+              exit 0
+            fi
             sleep 1
           done
+          # Without this the loop would fall through silently and every later
+          # step would fail with a confusing connection error instead of
+          # "the server under test never started".
+          echo "::error::mock server did not become ready within 20s"
+          cat server.log
+          exit 1
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Install Python dependencies
         run: |
@@ -51,9 +65,20 @@ jobs:
       - name: Full suite (includes real ~5s/15s/60s async waits)
         run: pytest --html-report=reports/report-full.html
 
-      - name: Upload HTML reports
+      - name: Upload HTML reports and run logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-html-reports
-          path: reports/**/*.html
+          # Whole reports/ tree, not just the HTML: each run also writes a
+          # DEBUG-level run.log (run-gw*.log per xdist worker) beside its
+          # report, which is what makes a CI-only failure diagnosable.
+          name: pytest-reports-and-logs
+          path: reports/**
+
+      - name: Upload mock server log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mock-server-log
+          path: mock-server/server.log
+          if-no-files-found: ignore
