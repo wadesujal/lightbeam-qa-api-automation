@@ -8,3 +8,4 @@ mock-server/node_modules/
 mock-server/package-lock.json
 .idea/
 .DS_Store
+.hypothesis/
