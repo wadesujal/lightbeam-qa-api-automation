@@ -1,10 +1,10 @@
 """Reusable async-wait utility.
 
-The reference framework's domain (wallet transfers) didn't need this --
-its state changes were synchronous. This assignment is built around
-long-running asynchronous state (order lifecycle, export jobs), so this
-module is the one piece of core infrastructure added beyond the reference
-layout. It is used by every test that waits on a state transition; no test
+This assignment is built around long-running asynchronous state (the order
+lifecycle, export jobs), which a purely synchronous test framework has no
+need for -- so this module is the one piece of core infrastructure this
+project adds beyond a standard config/utilities/step_definitions layout.
+It is used by every test that waits on a state transition; no test
 anywhere in this suite uses a fixed time.sleep().
 """
 

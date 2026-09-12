@@ -35,10 +35,11 @@ are the pytest functions that execute them (like step-definition methods). Scena
 genuinely control flow rather than data — the order state-machine wait, cancellation timing — are
 kept as direct pytest functions instead of YAML, the same way a reliability/concurrency suite would.
 
-This layout is adapted from a reference SDET submission (`Robustrade/sdet-assignments` PR #8, shared
-as the structural reference) rather than invented from scratch. What carried over, what was adapted,
-and what didn't apply to this assignment's domain (no database, no in-process app — the SUT is only
-ever reached over real HTTP) is called out inline below and in `TEST_PLAN.md`.
+This layout follows a structured SDET framework pattern (config-per-environment, YAML scenarios
+split from step definitions, soft assertions, a step-level HTML report, tag-based CLI filtering)
+rather than a flat, ad hoc `tests/` folder. What that pattern needed adapting for this assignment's
+domain (no database, no in-process app — the SUT is only ever reached over real HTTP) is called out
+inline below and in `TEST_PLAN.md`.
 
 ## Run it
 
