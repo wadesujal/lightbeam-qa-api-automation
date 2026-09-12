@@ -62,19 +62,27 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     `--no-html-report` CLI options under an `api-framework` group."""
     group = parser.getgroup("api-framework")
     group.addoption(
-        "--incl_tests", action="store", default="",
+        "--incl_tests",
+        action="store",
+        default="",
         help="Comma-separated tags to include (run only tests with these markers).",
     )
     group.addoption(
-        "--excl_tests", action="store", default="",
+        "--excl_tests",
+        action="store",
+        default="",
         help="Comma-separated tags to exclude (skip tests carrying these markers).",
     )
     group.addoption(
-        "--html-report", action="store", default="",
+        "--html-report",
+        action="store",
+        default="",
         help="Override the HTML report path. Default: reports/custom_report_<ts>/report.html",
     )
     group.addoption(
-        "--no-html-report", action="store_true", default=False,
+        "--no-html-report",
+        action="store_true",
+        default=False,
         help="Skip HTML report generation entirely.",
     )
 
@@ -98,7 +106,9 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list) -> None:
     if not incl and not excl:
         return
 
-    skip_incl = pytest.mark.skip(reason=f"missing required tag (--incl_tests={','.join(sorted(incl))})")
+    skip_incl = pytest.mark.skip(
+        reason=f"missing required tag (--incl_tests={','.join(sorted(incl))})"
+    )
     skip_excl = pytest.mark.skip(reason="tag excluded via --excl_tests")
 
     for item in items:
@@ -249,9 +259,11 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         # gain -- the full DEBUG trace is in run.log either way. `sections` is a
         # standard TestReport field, so unlike `steps` it survives xdist
         # serialization and shows up in parallel runs too.
-        "sections": [] if report.passed else [
-            {"name": name, "content": content} for name, content in report.sections
-        ],
+        "sections": (
+            []
+            if report.passed
+            else [{"name": name, "content": content} for name, content in report.sections]
+        ),
     }
     setattr(report, _REPORT_EXTRA_ATTR, extra)
     item.config.stash[RESULTS_KEY].append(extra)
@@ -329,20 +341,26 @@ def _results_from_terminal_reporter(config: pytest.Config) -> list:
         for report in reports:
             if not isinstance(report, pytest.TestReport) or not _is_reportable(report):
                 continue
-            results.append({
-                "nodeid": report.nodeid,
-                # The item (and therefore its title marker) lives in the worker
-                # process, so the controller falls back to the prettified name.
-                "title": _prettify(report.nodeid.rpartition("::")[2]),
-                "outcome": _outcome_of(report),
-                "duration_s": getattr(report, "duration", 0.0),
-                "longrepr": str(report.longrepr) if report.failed else "",
-                "steps": [],
-                "tags": [],
-                "sections": [] if report.passed else [
-                    {"name": name, "content": content} for name, content in report.sections
-                ],
-            })
+            results.append(
+                {
+                    "nodeid": report.nodeid,
+                    # The item (and therefore its title marker) lives in the worker
+                    # process, so the controller falls back to the prettified name.
+                    "title": _prettify(report.nodeid.rpartition("::")[2]),
+                    "outcome": _outcome_of(report),
+                    "duration_s": getattr(report, "duration", 0.0),
+                    "longrepr": str(report.longrepr) if report.failed else "",
+                    "steps": [],
+                    "tags": [],
+                    "sections": (
+                        []
+                        if report.passed
+                        else [
+                            {"name": name, "content": content} for name, content in report.sections
+                        ]
+                    ),
+                }
+            )
     return results
 
 
@@ -398,7 +416,9 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html, encoding="utf-8")
     except Exception:
-        logger.exception("Could not render/write the HTML report to %s -- test results are unaffected.", out)
+        logger.exception(
+            "Could not render/write the HTML report to %s -- test results are unaffected.", out
+        )
         return
 
     abs_path = out.resolve()
@@ -424,4 +444,11 @@ def _summarise(results: list) -> dict:
     error = sum(1 for r in results if r["outcome"] == "error")
     skipped = sum(1 for r in results if r["outcome"] == "skipped")
     pass_pct = round((passed / total) * 100, 1) if total else 0.0
-    return {"total": total, "passed": passed, "failed": failed, "error": error, "skipped": skipped, "pass_pct": pass_pct}
+    return {
+        "total": total,
+        "passed": passed,
+        "failed": failed,
+        "error": error,
+        "skipped": skipped,
+        "pass_pct": pass_pct,
+    }

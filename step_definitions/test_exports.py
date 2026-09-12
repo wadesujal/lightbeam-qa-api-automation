@@ -111,9 +111,7 @@ def test_export_status_and_download_require_auth(anonymous_export_client):
 
 @pytest.mark.exports
 @pytest.mark.slow
-@pytest.mark.title(
-    "Validate that an export completes after ~60s and downloads a valid CSV payload"
-)
+@pytest.mark.title("Validate that an export completes after ~60s and downloads a valid CSV payload")
 def test_export_completes_and_download_returns_valid_csv(export_client, settings, step_log):
     sa = SoftAssert(step_log)
     job_id = export_client.create_export().json()["jobId"]

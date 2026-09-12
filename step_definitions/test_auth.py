@@ -35,9 +35,7 @@ class TestLogin:
         sa.check((body.get("expiresIn") or 0) > 0, "expiresIn is a positive lifetime")
         sa.assert_all()
 
-    @pytest.mark.title(
-        "Validate that a freshly issued token is accepted on a protected route"
-    )
+    @pytest.mark.title("Validate that a freshly issued token is accepted on a protected route")
     def test_login_token_is_accepted_on_a_protected_route(self, auth_client, settings):
         creds = random_credentials()
         token = auth_client.login(creds["username"], creds["apiKey"]).json()["token"]

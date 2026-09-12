@@ -95,20 +95,29 @@ class BaseClient:
         # Request bodies go to DEBUG: noise on a green run, but the run log is
         # written at DEBUG level, so a failed run always has the payload that
         # produced it -- without it a 400 tells you nothing about what was sent.
-        logger.debug("%s %s request body: %s", method, path, truncate(mask_sensitive(str(json_body))))
+        logger.debug(
+            "%s %s request body: %s", method, path, truncate(mask_sensitive(str(json_body)))
+        )
 
         for attempt in range(retries + 1):
             is_last_attempt = attempt == retries
             start = time.monotonic()
             try:
                 response = self.session.request(
-                    method, url, headers=merged_headers, json=json_body,
-                    timeout=self.timeout, **kwargs,
+                    method,
+                    url,
+                    headers=merged_headers,
+                    json=json_body,
+                    timeout=self.timeout,
+                    **kwargs,
                 )
                 elapsed_ms = (time.monotonic() - start) * 1000
                 logger.info(
                     "%s %s -> %s (%.0fms)%s",
-                    method, path, response.status_code, elapsed_ms,
+                    method,
+                    path,
+                    response.status_code,
+                    elapsed_ms,
                     f" corr_id={correlation_id}" if correlation_id else "",
                 )
                 # An error response's body is the single most useful thing to have
@@ -117,12 +126,16 @@ class BaseClient:
                 if response.status_code >= 400:
                     logger.info(
                         "%s %s error body: %s",
-                        method, path, truncate(mask_sensitive(response.text)),
+                        method,
+                        path,
+                        truncate(mask_sensitive(response.text)),
                     )
                 else:
                     logger.debug(
                         "%s %s response body: %s",
-                        method, path, truncate(mask_sensitive(response.text)),
+                        method,
+                        path,
+                        truncate(mask_sensitive(response.text)),
                     )
 
                 # Only retry genuine transport/server hiccups -- never a 4xx a test cares about.
@@ -134,7 +147,11 @@ class BaseClient:
                 last_exc = exc
                 logger.warning(
                     "Network error on %s %s (attempt %d/%d): %s",
-                    method, path, attempt + 1, retries + 1, mask_sensitive(str(exc)),
+                    method,
+                    path,
+                    attempt + 1,
+                    retries + 1,
+                    mask_sensitive(str(exc)),
                 )
                 # Don't back off after the final attempt -- there is nothing left to wait for.
                 if not is_last_attempt:

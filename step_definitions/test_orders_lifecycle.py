@@ -23,25 +23,19 @@ PENDING_WINDOW_SECONDS = 5.0
 
 
 @pytest.mark.smoke
-@pytest.mark.title(
-    "Validate that the orders API returns 404 for an order that does not exist"
-)
+@pytest.mark.title("Validate that the orders API returns 404 for an order that does not exist")
 def test_get_nonexistent_order_returns_404(order_client):
     response = order_client.get_order("ORD-99999999")
     assert response.status_code == 404, response.text
 
 
-@pytest.mark.title(
-    "Validate that the orders API returns 401 for an unauthenticated read request"
-)
+@pytest.mark.title("Validate that the orders API returns 401 for an unauthenticated read request")
 def test_get_order_without_auth_returns_401(anonymous_order_client):
     response = anonymous_order_client.get_order("ORD-00000")
     assert response.status_code == 401, response.text
 
 
-@pytest.mark.title(
-    "Validate that the orders API returns 401 for an unauthenticated cancel request"
-)
+@pytest.mark.title("Validate that the orders API returns 401 for an unauthenticated cancel request")
 def test_cancel_order_without_auth_returns_401(anonymous_order_client):
     """DELETE is a destructive operation, so its 401 path matters more than
     the read paths' -- an unauthenticated caller must never be able to
@@ -52,9 +46,7 @@ def test_cancel_order_without_auth_returns_401(anonymous_order_client):
 
 
 @pytest.mark.smoke
-@pytest.mark.title(
-    "Validate that the orders API returns every persisted field for a created order"
-)
+@pytest.mark.title("Validate that the orders API returns every persisted field for a created order")
 def test_get_order_returns_the_persisted_order(order_client, step_log):
     """POST returns a summary; GET must return the full persisted resource.
     Nothing else in the suite proves the server actually stored what it was
@@ -76,20 +68,24 @@ def test_get_order_returns_the_persisted_order(order_client, step_log):
     sa.equals(body.get("orderId"), created_body["orderId"], "orderId")
     sa.equals(body.get("customerId"), payload["customerId"], "customerId round-trips")
     sa.equals(body.get("items"), payload["items"], "items round-trip unchanged")
-    sa.equals(body.get("shippingAddress"), payload["shippingAddress"], "shippingAddress round-trips")
-    sa.equals(body.get("createdAt"), created_body["createdAt"], "createdAt matches the creation response")
+    sa.equals(
+        body.get("shippingAddress"), payload["shippingAddress"], "shippingAddress round-trips"
+    )
+    sa.equals(
+        body.get("createdAt"), created_body["createdAt"], "createdAt matches the creation response"
+    )
     sa.equals(
         body.get("totalAmount"),
         pytest.approx(compute_expected_total(payload["items"])),
         "totalAmount matches independently computed total",
     )
-    sa.check(body.get("status") in {"PENDING", "PROCESSING", "COMPLETED"}, "status is a known state")
+    sa.check(
+        body.get("status") in {"PENDING", "PROCESSING", "COMPLETED"}, "status is a known state"
+    )
     sa.assert_all()
 
 
-@pytest.mark.title(
-    "Validate that repeated reads do not advance the order state"
-)
+@pytest.mark.title("Validate that repeated reads do not advance the order state")
 def test_get_order_does_not_itself_mutate_state(order_client):
     """Reading must not drive the state machine -- transitions are a function
     of elapsed wall-clock time, not of how many times the order was fetched.
@@ -131,8 +127,10 @@ def test_order_transitions_pending_to_processing_to_completed(order_client, sett
 
     with step_log.step("wait for PROCESSING"):
         processing = wait_for_condition(
-            poll_fn=poll, predicate=lambda o: o["status"] == "PROCESSING",
-            timeout=settings.order_poll_timeout_seconds, interval=settings.order_poll_interval_seconds,
+            poll_fn=poll,
+            predicate=lambda o: o["status"] == "PROCESSING",
+            timeout=settings.order_poll_timeout_seconds,
+            interval=settings.order_poll_interval_seconds,
             description=f"order {order_id} to reach PROCESSING",
         )
     sa.equals(processing.value["status"], "PROCESSING", "status after first transition")
@@ -140,8 +138,10 @@ def test_order_transitions_pending_to_processing_to_completed(order_client, sett
 
     with step_log.step("wait for COMPLETED"):
         completed = wait_for_condition(
-            poll_fn=poll, predicate=lambda o: o["status"] == "COMPLETED",
-            timeout=settings.order_poll_timeout_seconds, interval=settings.order_poll_interval_seconds,
+            poll_fn=poll,
+            predicate=lambda o: o["status"] == "COMPLETED",
+            timeout=settings.order_poll_timeout_seconds,
+            interval=settings.order_poll_interval_seconds,
             description=f"order {order_id} to reach COMPLETED",
         )
     sa.equals(completed.value["status"], "COMPLETED", "final status")
@@ -149,9 +149,7 @@ def test_order_transitions_pending_to_processing_to_completed(order_client, sett
 
 
 @pytest.mark.smoke
-@pytest.mark.title(
-    "Validate that the orders API cancels an order while it is PENDING"
-)
+@pytest.mark.title("Validate that the orders API cancels an order while it is PENDING")
 def test_cancel_order_while_pending_succeeds(order_client):
     order_id = order_client.create_order(create_order_payload()).json()["orderId"]
     response = order_client.delete_order(order_id)
@@ -160,15 +158,14 @@ def test_cancel_order_while_pending_succeeds(order_client):
 
 
 @pytest.mark.slow
-@pytest.mark.title(
-    "Validate that the orders API cancels an order while it is PROCESSING"
-)
+@pytest.mark.title("Validate that the orders API cancels an order while it is PROCESSING")
 def test_cancel_order_while_processing_succeeds(order_client, settings):
     order_id = order_client.create_order(create_order_payload()).json()["orderId"]
     wait_for_condition(
         poll_fn=lambda: order_client.get_order(order_id).json(),
         predicate=lambda o: o["status"] == "PROCESSING",
-        timeout=settings.order_poll_timeout_seconds, interval=settings.order_poll_interval_seconds,
+        timeout=settings.order_poll_timeout_seconds,
+        interval=settings.order_poll_interval_seconds,
         description=f"order {order_id} to reach PROCESSING before cancelling",
     )
     response = order_client.delete_order(order_id)
@@ -177,15 +174,14 @@ def test_cancel_order_while_processing_succeeds(order_client, settings):
 
 
 @pytest.mark.slow
-@pytest.mark.title(
-    "Validate that the orders API returns 409 when cancelling a COMPLETED order"
-)
+@pytest.mark.title("Validate that the orders API returns 409 when cancelling a COMPLETED order")
 def test_cancel_order_after_completed_returns_409(order_client, settings):
     order_id = order_client.create_order(create_order_payload()).json()["orderId"]
     wait_for_condition(
         poll_fn=lambda: order_client.get_order(order_id).json(),
         predicate=lambda o: o["status"] == "COMPLETED",
-        timeout=settings.order_poll_timeout_seconds, interval=settings.order_poll_interval_seconds,
+        timeout=settings.order_poll_timeout_seconds,
+        interval=settings.order_poll_interval_seconds,
         description=f"order {order_id} to reach COMPLETED before cancelling",
     )
     response = order_client.delete_order(order_id)
@@ -217,9 +213,7 @@ def test_cancel_nonexistent_order_returns_404(order_client):
 
 
 @pytest.mark.slow
-@pytest.mark.title(
-    "Validate that a CANCELLED order never advances to PROCESSING or COMPLETED"
-)
+@pytest.mark.title("Validate that a CANCELLED order never advances to PROCESSING or COMPLETED")
 def test_cancelled_order_never_advances_state(order_client, settings):
     """Confirmed server behavior: getUpdatedOrder skips the time-based
     transition once status is CANCELLED, so it must never flip forward again.

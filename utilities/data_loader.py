@@ -49,7 +49,9 @@ def load_cases(file_name: str) -> list:
     seen_ids: set[str] = set()
     for index, case in enumerate(cases):
         if not isinstance(case, dict) or "id" not in case:
-            raise ValueError(f"Case at index {index} in {path} is missing required key 'id': {case!r}")
+            raise ValueError(
+                f"Case at index {index} in {path} is missing required key 'id': {case!r}"
+            )
         case_id = case["id"]
         # Duplicate ids produce indistinguishable pytest node ids ("case0", "case1"),
         # which makes a failure impossible to trace back to its YAML entry.

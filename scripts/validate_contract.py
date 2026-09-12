@@ -33,7 +33,13 @@ REQUIRED_FIELDS = {
     "POST /auth/login": {"token", "expiresIn"},
     "POST /orders": {"orderId", "status", "totalAmount", "createdAt"},
     "GET /orders/:id": {
-        "orderId", "customerId", "items", "shippingAddress", "totalAmount", "status", "createdAt",
+        "orderId",
+        "customerId",
+        "items",
+        "shippingAddress",
+        "totalAmount",
+        "status",
+        "createdAt",
     },
     "POST /exports": {"jobId", "status", "pollIntervalSeconds"},
     "GET /exports/:id": {"jobId", "status", "downloadUrl"},
@@ -75,8 +81,11 @@ def main() -> None:
 
     orders = OrderClient(settings=settings, token=token)
     create = orders.create_order(
-        {"customerId": "contract-check", "items": [{"sku": "X", "quantity": 1, "unitPrice": 1.0}],
-         "shippingAddress": "n/a"},
+        {
+            "customerId": "contract-check",
+            "items": [{"sku": "X", "quantity": 1, "unitPrice": 1.0}],
+            "shippingAddress": "n/a",
+        },
     )
     if create.status_code != 202:
         errors.append(f"POST /orders: expected 202, got {create.status_code} {create.text}")

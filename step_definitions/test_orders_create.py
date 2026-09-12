@@ -53,9 +53,7 @@ def test_order_creation(order_client, case, step_log):
 
 
 @pytest.mark.orders
-@pytest.mark.title(
-    "Validate that the orders API rejects a request with no X-Correlation-ID header"
-)
+@pytest.mark.title("Validate that the orders API rejects a request with no X-Correlation-ID header")
 def test_create_order_without_correlation_id_returns_400(order_client):
     response = order_client.create_order(create_order_payload(), include_correlation_id=False)
     assert response.status_code == 400, response.text
@@ -77,9 +75,7 @@ def test_create_order_with_empty_correlation_id_returns_400(order_client):
 
 
 @pytest.mark.orders
-@pytest.mark.title(
-    "Validate that the orders API returns 401 for an unauthenticated create request"
-)
+@pytest.mark.title("Validate that the orders API returns 401 for an unauthenticated create request")
 def test_create_order_without_auth_returns_401(anonymous_order_client):
     response = anonymous_order_client.create_order(create_order_payload())
     assert response.status_code == 401, response.text
@@ -102,7 +98,9 @@ class TestKnownServerValidationGaps:
         "Validate that the orders API currently accepts a negative quantity and returns a negative total (documented defect)"
     )
     def test_negative_quantity_is_currently_accepted(self, order_client):
-        payload = create_order_payload(items=[{"sku": "SKU-NEG", "quantity": -2, "unitPrice": 10.0}])
+        payload = create_order_payload(
+            items=[{"sku": "SKU-NEG", "quantity": -2, "unitPrice": 10.0}]
+        )
         response = order_client.create_order(payload)
 
         assert response.status_code == 202, response.text

@@ -17,11 +17,17 @@ from hypothesis import strategies as st
 
 from utilities.payload_builders import compute_expected_total, create_order_payload
 
-item_strategy = st.fixed_dictionaries({
-    "sku": st.text(min_size=1, max_size=12, alphabet=st.characters(whitelist_categories=("Lu", "Nd"))),
-    "quantity": st.integers(min_value=1, max_value=100),
-    "unitPrice": st.floats(min_value=0.01, max_value=9999.99, allow_nan=False, allow_infinity=False),
-})
+item_strategy = st.fixed_dictionaries(
+    {
+        "sku": st.text(
+            min_size=1, max_size=12, alphabet=st.characters(whitelist_categories=("Lu", "Nd"))
+        ),
+        "quantity": st.integers(min_value=1, max_value=100),
+        "unitPrice": st.floats(
+            min_value=0.01, max_value=9999.99, allow_nan=False, allow_infinity=False
+        ),
+    }
+)
 
 
 @pytest.mark.invariant
@@ -31,7 +37,9 @@ item_strategy = st.fixed_dictionaries({
 )
 # The Hypothesis decorators stay innermost: markers must be applied to the
 # wrapper pytest collects, not to the raw function `given()` wraps.
-@hyp_settings(max_examples=25, suppress_health_check=[HealthCheck.function_scoped_fixture], deadline=None)
+@hyp_settings(
+    max_examples=25, suppress_health_check=[HealthCheck.function_scoped_fixture], deadline=None
+)
 @given(items=st.lists(item_strategy, min_size=1, max_size=8))
 def test_total_amount_holds_for_any_item_list(order_client, items):
     payload = create_order_payload(items=items)

@@ -46,7 +46,9 @@ def wait_for_condition(
         attempts += 1
         last_value = poll_fn()
         if predicate(last_value):
-            return PollResult(value=last_value, elapsed_seconds=time.monotonic() - start, attempts=attempts)
+            return PollResult(
+                value=last_value, elapsed_seconds=time.monotonic() - start, attempts=attempts
+            )
 
         elapsed = time.monotonic() - start
         if elapsed >= timeout:
