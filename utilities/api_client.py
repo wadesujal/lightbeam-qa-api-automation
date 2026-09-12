@@ -51,7 +51,9 @@ class BaseClient:
         accumulate open connections or emit ResourceWarnings."""
         self.session.close()
 
-    def __enter__(self) -> "BaseClient":
+    # PYI034 wants `Self`, which is typing.Self (3.11+); this repo still runs on
+    # 3.9, and pulling in typing_extensions for one annotation is not worth it.
+    def __enter__(self) -> BaseClient:  # noqa: PYI034
         """Support `with SomeClient(...) as client:` for one-off clients
         built outside a fixture."""
         return self
@@ -163,7 +165,7 @@ class BaseClient:
         """Send a GET request to `path` (see `request` for retry/backoff behavior)."""
         return self.request("GET", path, **kwargs)
 
-    def post(self, path: str, json_body: dict = None, **kwargs) -> requests.Response:
+    def post(self, path: str, json_body: dict | None = None, **kwargs) -> requests.Response:
         """Send a POST request to `path` with an optional JSON body."""
         return self.request("POST", path, json_body=json_body, **kwargs)
 

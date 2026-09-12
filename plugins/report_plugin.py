@@ -367,7 +367,7 @@ def _results_from_terminal_reporter(config: pytest.Config) -> list:
 def _default_report_path() -> Path:
     """Build the default timestamped report path used when neither
     `--html-report` nor `--no-html-report` is passed."""
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now(timezone.utc).astimezone().strftime("%Y%m%d_%H%M%S")
     return Path("reports") / f"custom_report_{ts}" / "report.html"
 
 

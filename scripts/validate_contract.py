@@ -14,14 +14,14 @@ from pathlib import Path
 
 # This script is executed directly (`python scripts/validate_contract.py`), so the
 # repo root has to be on sys.path before the first-party imports below can resolve.
-# They therefore sit after executable code on purpose -- E402 is suppressed rather
-# than worked around, because the alternative (a package-relative launch) would make
-# the CI invocation less obvious than the lint rule is worth.
+# The first-party imports therefore sit after executable code on purpose; a
+# package-relative launch would make the CI invocation less obvious than the
+# import-order convention is worth.
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from config.settings import Settings  # noqa: E402
-from utilities.api_client import ApiError, AuthClient, ExportClient, OrderClient  # noqa: E402
-from utilities.logger import configure_stream_logging, get_logger  # noqa: E402
+from config.settings import Settings
+from utilities.api_client import ApiError, AuthClient, ExportClient, OrderClient
+from utilities.logger import configure_stream_logging, get_logger
 
 logger = get_logger(__name__)
 

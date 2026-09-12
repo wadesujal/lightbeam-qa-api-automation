@@ -6,7 +6,13 @@ reviewer benefits from seeing all of them fail at once rather than
 re-running the test N times to find each broken expectation.
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:  # pragma: no cover - import only needed for the annotation below
+    from utilities.steps import StepLog
 
 
 @dataclass
@@ -17,7 +23,7 @@ class SoftAssert:
     `step_log` (see `utilities.steps.StepLog`) is supplied, each check is
     also recorded against the currently-open step for the HTML report."""
 
-    step_log: "StepLog" = None  # type: ignore[name-defined]
+    step_log: StepLog | None = None
     _failures: list = field(default_factory=list)
     _checks_run: int = 0
 

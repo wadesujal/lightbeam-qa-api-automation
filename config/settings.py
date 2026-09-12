@@ -6,6 +6,8 @@ ever committed) rather than a flat .env file, so a new environment is a
 new properties file, not a code change.
 """
 
+from __future__ import annotations
+
 import logging
 import os
 import re
@@ -71,7 +73,7 @@ class Settings:
     cancelled_observation_seconds: float
 
     @classmethod
-    def load(cls, env: str = None) -> "Settings":
+    def load(cls, env: str | None = None) -> Settings:
         """Load settings for `env` (default: `$TEST_ENV`, then "qa").
 
         Raises:

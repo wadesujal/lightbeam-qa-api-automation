@@ -9,8 +9,9 @@ anywhere in this suite uses a fixed time.sleep().
 """
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any
 
 
 class PollTimeoutError(TimeoutError):

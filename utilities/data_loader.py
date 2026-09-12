@@ -43,7 +43,7 @@ def load_cases(file_name: str) -> list:
     # is present but empty, so fall back with `or []` instead of a default.
     cases = raw.get("cases") or []
     if not isinstance(cases, list):
-        raise ValueError(f"'cases' in {path} must be a list, got {type(cases).__name__}")
+        raise TypeError(f"'cases' in {path} must be a list, got {type(cases).__name__}")
 
     params = []
     seen_ids: set[str] = set()
