@@ -5,8 +5,10 @@ __pycache__/
 reports/
 .env
 mock-server/node_modules/
-mock-server/package-lock.json
+# mock-server/package-lock.json is intentionally committed: CI installs with
+# `npm ci`, which requires the lockfile and pins the exact dependency tree.
 .idea/
 .DS_Store
 .hypothesis/
 _to_delete/
+Output/

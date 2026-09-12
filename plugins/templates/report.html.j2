@@ -18,9 +18,14 @@
   th { color: #9aa0a6; font-weight: 500; }
   tr.failed td { background: rgba(244, 67, 54, 0.06); }
   .tag { display: inline-block; background: #262a33; border-radius: 4px; padding: 1px 6px; margin: 1px 2px 1px 0; font-size: 11px; color: #b8c0cc; }
+  .title { font-size: 13px; color: #e6e6e6; }
+  .nodeid { display: block; margin: 2px 0 0 0; font-family: ui-monospace, monospace; font-size: 11px; color: #7d8590; }
   .steps { margin: 6px 0 0 0; padding-left: 18px; font-size: 12px; color: #b8c0cc; }
   .steps li.failed-step { color: #f44336; }
   .longrepr { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; color: #f44336; margin-top: 6px; }
+  .capture { margin-top: 8px; }
+  .capture h4 { margin: 8px 0 2px; font-size: 11px; font-weight: 600; color: #9aa0a6; text-transform: uppercase; letter-spacing: .04em; }
+  .capture pre { white-space: pre-wrap; word-break: break-word; margin: 0; padding: 6px 8px; background: #12151b; border-left: 2px solid #2f3540; font-family: ui-monospace, monospace; font-size: 11px; color: #b8c0cc; max-height: 320px; overflow: auto; }
   details summary { cursor: pointer; }
 </style>
 </head>
@@ -38,13 +43,14 @@
   </div>
 
   <table>
-    <thead><tr><th>Test</th><th>Tags</th><th>Outcome</th><th>Duration</th></tr></thead>
+    <thead><tr><th>Test case</th><th>Tags</th><th>Outcome</th><th>Duration</th></tr></thead>
     <tbody>
     {% for r in results %}
       <tr class="{{ r.outcome }}">
         <td>
           <details>
-            <summary>{{ r.nodeid }}</summary>
+            <summary><span class="title">{{ r.title or r.nodeid }}</span></summary>
+            <code class="nodeid">{{ r.nodeid }}</code>
             {% if r.steps %}
             <ul class="steps">
               {% for s in r.steps %}
@@ -58,6 +64,14 @@
             </ul>
             {% endif %}
             {% if r.longrepr %}<div class="longrepr">{{ r.longrepr }}</div>{% endif %}
+            {% if r.sections %}
+            <div class="capture">
+              {% for s in r.sections %}
+              <h4>{{ s.name }}</h4>
+              <pre>{{ s.content }}</pre>
+              {% endfor %}
+            </div>
+            {% endif %}
           </details>
         </td>
         <td>{% for t in r.tags %}<span class="tag">{{ t }}</span>{% endfor %}</td>

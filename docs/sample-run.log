@@ -1,0 +1,758 @@
+2026-09-13 02:52:50 [DEBUG] utilities.data_loader: Loaded 5 case(s) from /Users/sujalwade/Assignments/lightbeamAI/lightbeam-qa-api-automation/testcases/auth.yaml
+2026-09-13 02:52:50 [DEBUG] utilities.data_loader: Loaded 5 case(s) from /Users/sujalwade/Assignments/lightbeamAI/lightbeam-qa-api-automation/testcases/exports.yaml
+2026-09-13 02:52:51 [DEBUG] utilities.data_loader: Loaded 10 case(s) from /Users/sujalwade/Assignments/lightbeamAI/lightbeam-qa-api-automation/testcases/orders_create.yaml
+2026-09-13 02:52:51 [DEBUG] config.settings: Loaded settings for env=qa from /Users/sujalwade/Assignments/lightbeamAI/lightbeam-qa-api-automation/config/qa.properties
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': 'user_ce4c3130', 'apiKey': 'key_d659315baff1'}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 200 56
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 200 (31ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login response body: {"token":"mock-jwt-bearer-token-12345","expiresIn":3600}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': 'user_7b26c457', 'apiKey': 'key_f37729df5510'}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 200 56
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 200 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login response body: {"token":"mock-jwt-bearer-token-12345","expiresIn":3600}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /orders/ORD-nonexistent-but-authenticated request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-nonexistent-but-authenticated HTTP/1.1" 404 27
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /orders/ORD-nonexistent-but-authenticated -> 404 (2ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /orders/ORD-nonexistent-but-authenticated error body: {"error":"Order not found"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': None, 'apiKey': 'some-key'}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 400 31
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 400 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login error body: {"error":"Missing credentials"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': 'some-user', 'apiKey': None}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 400 31
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 400 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login error body: {"error":"Missing credentials"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': None, 'apiKey': None}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 400 31
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 400 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login error body: {"error":"Missing credentials"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': '', 'apiKey': 'some-key'}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 400 31
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 400 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login error body: {"error":"Missing credentials"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': 'some-user', 'apiKey': ''}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 400 31
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 400 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login error body: {"error":"Missing credentials"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /orders/ORD-00000 request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-00000 HTTP/1.1" 401 50
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /orders/ORD-00000 -> 401 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /orders/ORD-00000 error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /orders/ORD-00000 request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-00000 HTTP/1.1" 401 50
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /orders/ORD-00000 -> 401 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /orders/ORD-00000 error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login request body: {'username': 'user_bda76447', 'apiKey': 'key_47194ade4a7c'}
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/auth/login HTTP/1.1" 200 56
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /auth/login -> 200 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /auth/login response body: {"token":"mock-jwt-bearer-token-12345","expiresIn":3600}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/exports HTTP/1.1" 202 67
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /exports -> 202 (2ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports response body: {"jobId":"JOB-83086","status":"PROCESSING","pollIntervalSeconds":5}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/exports HTTP/1.1" 202 67
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /exports -> 202 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports response body: {"jobId":"JOB-33133","status":"PROCESSING","pollIntervalSeconds":5}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-33133 request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-33133 HTTP/1.1" 200 62
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-33133 -> 200 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-33133 response body: {"jobId":"JOB-33133","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/exports HTTP/1.1" 202 67
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /exports -> 202 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports response body: {"jobId":"JOB-35577","status":"PROCESSING","pollIntervalSeconds":5}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-35577/download request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-35577/download HTTP/1.1" 400 40
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-35577/download -> 400 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-35577/download error body: {"error":"Export file is not ready yet"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-99999999 request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-99999999 HTTP/1.1" 404 32
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-99999999 -> 404 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-99999999 error body: {"error":"Export job not found"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-99999999/download request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-99999999/download HTTP/1.1" 404 32
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-99999999/download -> 404 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-99999999/download error body: {"error":"Export job not found"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/exports HTTP/1.1" 401 50
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /exports -> 401 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /exports error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-00000 request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-00000 HTTP/1.1" 401 50
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-00000 -> 401 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-00000 error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-00000/download request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-00000/download HTTP/1.1" 401 50
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-00000/download -> 401 (1ms)
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-00000/download error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/exports HTTP/1.1" 202 67
+2026-09-13 02:52:51 [INFO] utilities.api_client: POST /exports -> 202 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: POST /exports response body: {"jobId":"JOB-90177","status":"PROCESSING","pollIntervalSeconds":5}
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:52:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:52:51 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (1ms)
+2026-09-13 02:52:51 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:52:53 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:52:53 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:52:53 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:52:53 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:52:55 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:52:55 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:52:55 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:52:55 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:52:57 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:52:57 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:52:57 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (1ms)
+2026-09-13 02:52:57 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:52:59 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:52:59 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:52:59 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (5ms)
+2026-09-13 02:52:59 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:01 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:01 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:01 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:01 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:03 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:03 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:03 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (3ms)
+2026-09-13 02:53:03 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:05 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:05 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:05 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (5ms)
+2026-09-13 02:53:05 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:07 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:07 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:07 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (7ms)
+2026-09-13 02:53:07 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:09 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:09 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:09 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:09 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:11 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:11 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:11 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (1ms)
+2026-09-13 02:53:11 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:13 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:13 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:13 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:13 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:15 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:15 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:15 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (5ms)
+2026-09-13 02:53:15 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:17 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:17 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:17 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:17 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:19 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:19 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:19 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:19 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:21 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:21 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:21 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:21 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:23 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:23 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:23 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:23 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:25 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:25 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:25 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:25 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:27 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:27 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:27 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (5ms)
+2026-09-13 02:53:27 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:29 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:29 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:29 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:29 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:31 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:31 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:31 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:31 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:33 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:33 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:33 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (3ms)
+2026-09-13 02:53:33 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:35 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:35 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:35 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (5ms)
+2026-09-13 02:53:35 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:37 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:37 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:37 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:37 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:39 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:39 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:39 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:39 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:41 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:41 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:41 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:41 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:43 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:43 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:43 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:43 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:45 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:45 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:45 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:45 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:47 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:47 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:47 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (3ms)
+2026-09-13 02:53:47 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:49 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:49 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 62
+2026-09-13 02:53:49 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (4ms)
+2026-09-13 02:53:49 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"PROCESSING","downloadUrl":null}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /exports/JOB-90177 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177 HTTP/1.1" 200 89
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /exports/JOB-90177 -> 200 (8ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /exports/JOB-90177 response body: {"jobId":"JOB-90177","status":"COMPLETED","downloadUrl":"/v1/exports/JOB-90177/download"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /exports/JOB-90177/download request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/exports/JOB-90177/download HTTP/1.1" 200 79
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /exports/JOB-90177/download -> 200 (4ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /exports/JOB-90177/download response body: orderId,status,totalAmount
+ORD-10001,COMPLETED,150.00
+ORD-10002,CANCELLED,45.50
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-47e00c9a', 'items': [{'sku': '0', 'quantity': 1, 'unitPrice': 0.01}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 100
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (5ms) corr_id=d0980550-05ba-468d-9a98-8884c5d07746
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-76183","status":"PENDING","totalAmount":0.01,"createdAt":"2026-09-12T21:23:51.419Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-e579435a', 'items': [{'sku': 'Õ', 'quantity': 1, 'unitPrice': 0.01}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 100
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (2ms) corr_id=b1d997a4-0679-48f8-8a6d-7bb808b76580
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-43080","status":"PENDING","totalAmount":0.01,"createdAt":"2026-09-12T21:23:51.423Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-e4f30381', 'items': [{'sku': 'Õ', 'quantity': 40, 'unitPrice': 9836.990776224027}, {'sku': 'VÑƇB', 'quantity': 34, 'unitPrice': 763.3002694055042}, {'sku': 'ȒŨŜƐÀË8ØÜӅ', 'quantity': 53, 'unitPrice': 8153.991512870386}, {'sku': 'ȻVŪÑ', 'quantity': 41, 'unitPrice': 236.92887128940467}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=65a4f765-bcb5-4daf-be00-c983df3e4c90
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-58295","status":"PENDING","totalAmount":861307.4741137443,"createdAt":"2026-09-12T21:23:51.426Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-65a9a76b', 'items': [{'sku': 'Ǣ', 'quantity': 100, 'unitPrice': 2181.22039034657}, {'sku': 'Ώ𑑐RȰƏĿɄÏᏗŨĪƁ', 'quantity': 98, 'unitPrice': 0.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 112
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (2ms) corr_id=22fa5fe0-9308-4b19-abc0-99249b4bb4eb
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-62337","status":"PENDING","totalAmount":218171.039034657,"createdAt":"2026-09-12T21:23:51.451Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-5b763cf5', 'items': [{'sku': 'Ģ00ÇɈǄ', 'quantity': 63, 'unitPrice': 520.170706115448}, {'sku': 'Ɨ', 'quantity': 66, 'unitPrice': 19.99}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=ad2de075-21dd-44b7-8f6c-136422294770
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-30582","status":"PENDING","totalAmount":34090.09448527322,"createdAt":"2026-09-12T21:23:51.454Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-9cf38426', 'items': [{'sku': 'Ǖ𑙗Ɓ', 'quantity': 89, 'unitPrice': 1528.269534240353}, {'sku': 'NULL', 'quantity': 91, 'unitPrice': 2.00001}, {'sku': 'ȘŬÍBĦƁ', 'quantity': 64, 'unitPrice': 4489.2431287259715}, {'sku': 'ΘƼPȌ', 'quantity': 66, 'unitPrice': 4618.552260140053}, {'sku': 'Ǣ', 'quantity': 32, 'unitPrice': 7004.152208755876}, {'sku': 'Ꞿ๕Ɲ𐐤Ͷ𖹉Қ𝒜ǊΏĠꝨ', 'quantity': 7, 'unitPrice': 2992.2188533247195}, {'sku': 'ǪȢHĔŹ𑓕ȤƔĬƇƸP', 'quantity': 90, 'unitPrice': 0.99999}, {'sku': ... [117 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=3a0b9bb6-d38a-4fdb-be6a-e649c14cdfad
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-99375","status":"PENDING","totalAmount":1606695.3791750455,"createdAt":"2026-09-12T21:23:51.459Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-523f7ba6', 'items': [{'sku': 'ÈǷƯMɊÙȆǼ', 'quantity': 66, 'unitPrice': 3023.127016807904}, {'sku': 'ŲɊĪŔȆÁ', 'quantity': 69, 'unitPrice': 8415.00364237583}, {'sku': 'ⰪJÉƖƘ', 'quantity': 27, 'unitPrice': 5452.041529340633}, {'sku': 'Ȏ', 'quantity': 28, 'unitPrice': 0.5}, {'sku': 'ÐǞƗǬ𑱖ÇNŰǪƊ', 'quantity': 26, 'unitPrice': 7305.39659849409}, {'sku': 'ĮǪȜƄ𑢧IS', 'quantity': 62, 'unitPrice': 8698.97520768379}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=370434c3-4079-4c10-b751-93107695ee91
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-84842","status":"PENDING","totalAmount":1656657.5301626925,"createdAt":"2026-09-12T21:23:51.461Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-2f129a1f', 'items': [{'sku': 'Č𑙙ΔƧÐWQǴԽƇ', 'quantity': 59, 'unitPrice': 1342.0311863203272}, {'sku': 'ĶƄŰF', 'quantity': 100, 'unitPrice': 1626.3431507170342}, {'sku': 'Ğ', 'quantity': 13, 'unitPrice': 9999.989999999998}, {'sku': 'ƠȆ', 'quantity': 40, 'unitPrice': 0.01}, {'sku': 'ȐȰĠĂ', 'quantity': 15, 'unitPrice': 9860.6778973288}, {'sku': '𑜰ĜƆȰÄƲǓĔ꧗ƐÒÀ', 'quantity': 40, 'unitPrice': 4684.682004340646}, {'sku': 'ŒⱿƱĎÂƘ', 'quantity': 49, 'unitPrice': 19.99}, {'sku': 'ÃÊ𞤌ƠBŎÎ... [109 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=92c4f7fe-d6b7-494f-adfc-5833cdde216b
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-30771","status":"PENDING","totalAmount":1231800.3597457951,"createdAt":"2026-09-12T21:23:51.464Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-14918335', 'items': [{'sku': 'QǱДᲡȰƑS', 'quantity': 52, 'unitPrice': 2773.0394309255744}, {'sku': '6C', 'quantity': 58, 'unitPrice': 163.60235172751163}, {'sku': 'Ề', 'quantity': 51, 'unitPrice': 5386.7103525056145}, {'sku': 'ΔÎǤɅȠ𐓉', 'quantity': 38, 'unitPrice': 1993.4153456745944}, {'sku': 'ǙȔŮͶΘ𝖯꧲Ï𝞟ƇÍŖ', 'quantity': 7, 'unitPrice': 7514.329506896707}, {'sku': 'EĤ𝚨Ǝ𑋱ŢĔĐ𝚷', 'quantity': 1, 'unitPrice': 4227.01589733824}, {'sku': 'VÔŠᎠĴXƗƮÕÃ𝕼', 'quantity': 56, 'unitPrice': 0.... [56 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=980d873c-c3c6-41dc-afa4-fa5a227f644d
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-52400","status":"PENDING","totalAmount":561014.3203673617,"createdAt":"2026-09-12T21:23:51.467Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-c59a182a', 'items': [{'sku': 'ŹËÄ𞅅CᏲȀÂΔ', 'quantity': 52, 'unitPrice': 5105.101253597095}, {'sku': '𐲏TÏȂÌԽǱÅ', 'quantity': 84, 'unitPrice': 1793.4138249790692}, {'sku': 'Ͷ', 'quantity': 77, 'unitPrice': 3327.2653771535374}, {'sku': 'Ύ', 'quantity': 53, 'unitPrice': 9630.123238796443}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=6dc0b518-c15f-490d-b0fd-075fadf0aba2
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-39930","status":"PENDING","totalAmount":1182707.9921823246,"createdAt":"2026-09-12T21:23:51.468Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-0fc6c31e', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 0.5}, {'sku': 'ΉΛ𝟴ĐĐRÝJ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': '9ÅTĦ', 'quantity': 11, 'unitPrice': 3102.276470649274}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǞŠ', 'quantity': 97, 'unitPrice': 5863.540797156449}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 47, 'unitPrice': 2945.9623081844584}, {'sku': 'ŲĪ'... [103 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=b78fe470-117c-4a2a-9aba-6f0c4f4cdc7b
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-56668","status":"PENDING","totalAmount":1693112.360655066,"createdAt":"2026-09-12T21:23:51.471Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-7f0a589f', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 0.5}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': '9ÅTĦ', 'quantity': 11, 'unitPrice': 3102.276470649274}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǞŠ', 'quantity': 97, 'unitPrice': 5863.540797156449}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 47, 'unitPrice': 2945.9623081844584}, {'sku': 'ŲĪ', '... [100 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=9827008c-6164-4cbf-8a25-c1c93dba8b14
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-36120","status":"PENDING","totalAmount":1693112.360655066,"createdAt":"2026-09-12T21:23:51.473Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-ebc14fe6', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 0.5}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': '9ÅTĦ', 'quantity': 11, 'unitPrice': 3102.276470649274}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǞŠ', 'quantity': 97, 'unitPrice': 5863.540797156449}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 47, 'unitPrice': 5863.540797156449}, {'sku': 'ŲĪ', 'q... [99 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=affc4daf-aa74-4f1b-aaa7-a21a1505a174
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-67733","status":"PENDING","totalAmount":1830238.5496367498,"createdAt":"2026-09-12T21:23:51.475Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-38dceacb', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 0.5}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': '9ÅTĦ', 'quantity': 11, 'unitPrice': 3102.276470649274}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǞŠ', 'quantity': 97, 'unitPrice': 5863.540797156449}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ŲĪ', 'qua... [97 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=f4fcb575-435c-4529-92c7-ae4db706ac55
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-85357","status":"PENDING","totalAmount":1764922.9570426925,"createdAt":"2026-09-12T21:23:51.478Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-ea34f6fc', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 0.5}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': '9ÅTĦ', 'quantity': 11, 'unitPrice': 3102.276470649274}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ŲĪ',... [102 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=45ca3b93-a083-4007-81ea-bb1534b577f3
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-49325","status":"PENDING","totalAmount":1358106.8925179893,"createdAt":"2026-09-12T21:23:51.480Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-c4ae95da', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': '9ÅTĦ', 'quantity': 11, 'unitPrice': 3102.276470649274}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}... [117 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=81f3d113-8744-40ef-b246-8e94f18a6517
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-24976","status":"PENDING","totalAmount":1568327.717390285,"createdAt":"2026-09-12T21:23:51.483Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-ac72dbf3', 'items': [{'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': 'ŰƝ', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ΑŹƖK𝓒', 'quantity': 71, 'unitPrice': 7574.096383567184}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}, {'sku': 'ǠȆ8ɌƇ', 'quantity': 100, 'unitPrice': 1619.4739279947203}, {'sku': 'Ü', 'quantity': 100, 'unitPrice': 2102.7082487229595}... [117 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=fddf7cdb-857b-452a-8798-bf51da699cf2
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-18591","status":"PENDING","totalAmount":1744473.5010854385,"createdAt":"2026-09-12T21:23:51.485Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-8e58b193', 'items': [{'sku': 'ǸĄ', 'quantity': 8, 'unitPrice': 174.24396280501523}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 842.3959379473725}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 44, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'ŦⰉỈÍYɅÄŒL', 'quantity': 27, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ŮḜƵͿǗNRȆ', 'quantity': 68, 'unitPrice': 2746.500066982468}], 'shipping... [42 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=93206e56-b985-48cd-8447-58490b675a0b
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-46810","status":"PENDING","totalAmount":899130.0257293409,"createdAt":"2026-09-12T21:23:51.489Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-1c942410', 'items': [{'sku': 'ǸĄ', 'quantity': 8, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 842.3959379473725}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 44, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'ŦⰉỈÍYɅÄŒL', 'quantity': 27, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ŮḜƵͿǗNRȆ', 'quantity': 68, 'unitPrice': 2746.500066982468}], 'shippingA... [41 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=2e924347-fffc-4086-b055-48caa83df3a8
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-35826","status":"PENDING","totalAmount":950616.2752791852,"createdAt":"2026-09-12T21:23:51.491Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-206dcf53', 'items': [{'sku': 'ǸĄ', 'quantity': 8, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 44, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'ŦⰉỈÍYɅÄŒL', 'quantity': 27, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ŮḜƵͿǗNRȆ', 'quantity': 68, 'unitPrice': 2746.500066982468}], 'shippingAddress': '... [31 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=ea6faeb0-6189-4c38-8100-7918f7b9456f
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-44547","status":"PENDING","totalAmount":1683223.8002433954,"createdAt":"2026-09-12T21:23:51.493Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-5601d554', 'items': [{'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 44, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'ŦⰉỈÍYɅÄŒL', 'quantity': 27, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ŮḜƵͿǗNRȆ', 'quantity': 68, 'unitPrice': 2746.500066982468}], 'shippingAddress... [35 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=cc70c743-cd9b-474d-999d-7f0716776c22
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-16851","status":"PENDING","totalAmount":2000505.007757102,"createdAt":"2026-09-12T21:23:51.495Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-4ffdaac9', 'items': [{'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 80, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'ŦⰉỈÍYɅÄŒL', 'quantity': 27, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ŮḜƵͿǗNRȆ', 'quantity': 68, 'unitPrice': 2746.500066982468}], 'shippingAddress... [35 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=a1847a06-db4c-4b55-81fd-5bca6932d5a6
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-73618","status":"PENDING","totalAmount":2000573.4077571018,"createdAt":"2026-09-12T21:23:51.498Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-6a42157c', 'items': [{'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 80, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ŮḜƵͿǗNRȆ', 'quantity': 68, 'unitPrice': 2746.500066982468}], 'shippingAddress': '221B... [27 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=94774f84-7618-4c97-8cc6-9f26d7b84abf
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-62050","status":"PENDING","totalAmount":2530572.8777571013,"createdAt":"2026-09-12T21:23:51.500Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-7aaa26f0', 'items': [{'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': '𖹁ÆÒ༩꣔ȤɌÙĶƯȐɁ', 'quantity': 80, 'unitPrice': 1.9}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}, {'sku': 'Ĥ', 'quantity': 80, 'unitPrice': 9999.99}, {'sku': 'ṰȤⳐĘ8ĤἍÐŜ', 'quantity': 4, 'unitPrice': 834.4139175781091}, {'sku': 'ΒƓÙĹӢ', 'quantity': 56, 'unitPrice': 6610.025156535548}], 'shippingAddress': '221B Ba... [24 more chars]
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 114
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=07f93a90-19fa-44c0-aa4f-5347ea22af55
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-86473","status":"PENDING","totalAmount":2713972.2819682844,"createdAt":"2026-09-12T21:23:51.502Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-ec0ca4f6', 'items': [{'sku': 'DƓ', 'quantity': 100, 'unitPrice': 6911.992146982789}, {'sku': '25', 'quantity': 96, 'unitPrice': 9482.027240145739}, {'sku': 'H', 'quantity': 39, 'unitPrice': 1371.584074119376}, {'sku': 'Ι', 'quantity': 60, 'unitPrice': 1.1}, {'sku': 'ŐĦ2ͿĪȀＮΑİŎɌŶ', 'quantity': 40, 'unitPrice': 7894.239352996044}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=16834cf4-71dd-42c4-90a8-017a2a2d4cf5
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-37353","status":"PENDING","totalAmount":1970801.182762767,"createdAt":"2026-09-12T21:23:51.504Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-700d0798', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=82943388-8627-4c48-a54f-af59c3297c87
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-59147","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:23:51.506Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms) corr_id=b7cf5843-bd09-4826-8bd0-784fa20e3516
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Invalid payload"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-add9dcf1', 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms) corr_id=c927ea55-614b-4abb-b6c7-0756bb7ceb54
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Invalid payload"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-891ebc26', 'items': [], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms) corr_id=9bd41e18-149b-4b6b-b661-fc4e929eec19
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Invalid payload"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-09701e52', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}]}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms) corr_id=d809bceb-0036-476a-a71a-9a737ba113db
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Invalid payload"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-eb7c5bb1', 'items': [{'sku': 'SKU-X', 'quantity': 3, 'unitPrice': 9.995}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 102
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=e7178f83-d08a-4fe6-89f8-38b6788be5c6
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-36162","status":"PENDING","totalAmount":29.985,"createdAt":"2026-09-12T21:23:51.514Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-13beab5e', 'items': 'SKU-1001', 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms) corr_id=c2e4ad99-0229-4e3f-abf7-d7b44bed87b8
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Invalid payload"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-17cec0e3', 'items': None, 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms) corr_id=f186c5d4-34e4-4dc1-9722-aaf237494fe3
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Invalid payload"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-f5aea112', 'items': [{'sku': 'SKU-Z', 'quantity': 0, 'unitPrice': 10.0}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 97
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=100be04a-43cf-48cd-93b9-d09af0a15ea9
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-25076","status":"PENDING","totalAmount":0,"createdAt":"2026-09-12T21:23:51.519Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-a248892b', 'items': [{'sku': 'SKU-ONE', 'quantity': 1, 'unitPrice': 0.01}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 100
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=b2bb81b0-8ba6-4194-b60b-94eda43abccb
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-13190","status":"PENDING","totalAmount":0.01,"createdAt":"2026-09-12T21:23:51.520Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-9dc1537d', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 43
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms)
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Missing X-Correlation-ID header"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-38294f2a', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 400 43
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 400 (1ms)
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Missing X-Correlation-ID header"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-a0617f82', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 401 50
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 401 (1ms) corr_id=8c315e60-af1b-461a-8c1a-6dec90864138
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-d2d6df32', 'items': [{'sku': 'SKU-NEG', 'quantity': -2, 'unitPrice': 10.0}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 99
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=10158e16-80cf-4682-b934-e0c62ec529a4
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-67437","status":"PENDING","totalAmount":-20,"createdAt":"2026-09-12T21:23:51.526Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-4c56bffd', 'items': [{'sku': 'SKU-NOQTY', 'unitPrice': 10.0}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 100
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=514bec75-1d76-4216-923a-3e0ec444fdef
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-62895","status":"PENDING","totalAmount":null,"createdAt":"2026-09-12T21:23:51.527Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-99999999 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-99999999 HTTP/1.1" 404 27
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-99999999 -> 404 (1ms)
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-99999999 error body: {"error":"Order not found"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-00000 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-00000 HTTP/1.1" 401 50
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-00000 -> 401 (1ms)
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-00000 error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: DELETE /orders/ORD-00000 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-00000 HTTP/1.1" 401 50
+2026-09-13 02:53:51 [INFO] utilities.api_client: DELETE /orders/ORD-00000 -> 401 (1ms)
+2026-09-13 02:53:51 [INFO] utilities.api_client: DELETE /orders/ORD-00000 error body: {"error":"Unauthorized: Missing or invalid token"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-59ff8c4c', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=18cffd08-d0e5-4cbb-8c92-c9f9a86e78fc
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-43839","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:23:51.533Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-43839 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-43839 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-43839 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-43839 response body: {"orderId":"ORD-43839","customerId":"CUST-59ff8c4c","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.533Z","createdTimestamp":1789248231533}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-a1cd6c4a', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=72ce0a0b-f59c-48c2-91e6-e6b48170292d
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-29256","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:23:51.535Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-29256 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-29256 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 response body: {"orderId":"ORD-29256","customerId":"CUST-a1cd6c4a","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.535Z","createdTimestamp":1789248231535}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-29256 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-29256 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 response body: {"orderId":"ORD-29256","customerId":"CUST-a1cd6c4a","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.535Z","createdTimestamp":1789248231535}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-29256 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-29256 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 response body: {"orderId":"ORD-29256","customerId":"CUST-a1cd6c4a","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.535Z","createdTimestamp":1789248231535}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-29256 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-29256 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 response body: {"orderId":"ORD-29256","customerId":"CUST-a1cd6c4a","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.535Z","createdTimestamp":1789248231535}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-29256 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-29256 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 response body: {"orderId":"ORD-29256","customerId":"CUST-a1cd6c4a","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.535Z","createdTimestamp":1789248231535}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-29256 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-29256 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-29256 response body: {"orderId":"ORD-29256","customerId":"CUST-a1cd6c4a","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.535Z","createdTimestamp":1789248231535}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-a1130cea', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:53:51 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=61b3a6b1-d60e-4890-b8f4-755768a13ce6
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-27668","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:23:51.541Z"}
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:51 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 334
+2026-09-13 02:53:51 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (1ms)
+2026-09-13 02:53:51 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:52 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:52 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 334
+2026-09-13 02:53:52 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:53:52 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:53 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:53 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 334
+2026-09-13 02:53:53 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (3ms)
+2026-09-13 02:53:53 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:54 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:54 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 334
+2026-09-13 02:53:54 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:53:54 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:55 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:55 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 334
+2026-09-13 02:53:55 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:53:55 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:56 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:56 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:53:56 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:53:56 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:56 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:56 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:53:56 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (2ms)
+2026-09-13 02:53:56 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:57 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:57 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:53:57 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:53:57 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:58 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:58 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:53:58 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:53:58 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:53:59 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:53:59 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:53:59 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (5ms)
+2026-09-13 02:53:59 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:00 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:00 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:54:00 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:54:00 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:01 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:01 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:54:01 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:54:01 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:02 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:02 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:54:02 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:54:02 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:03 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:03 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:54:03 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (3ms)
+2026-09-13 02:54:03 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:04 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:04 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:54:04 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:54:04 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:05 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:05 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 337
+2026-09-13 02:54:05 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (3ms)
+2026-09-13 02:54:05 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: GET /orders/ORD-27668 request body: None
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-27668 HTTP/1.1" 200 336
+2026-09-13 02:54:06 [INFO] utilities.api_client: GET /orders/ORD-27668 -> 200 (4ms)
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: GET /orders/ORD-27668 response body: {"orderId":"ORD-27668","customerId":"CUST-a1130cea","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"COMPLETED","createdAt":"2026-09-12T21:23:51.541Z","createdTimestamp":1789248231541}
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-6756f20b', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:54:06 [INFO] utilities.api_client: POST /orders -> 202 (4ms) corr_id=f7556d61-c140-4554-9942-d3de4cf958aa
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-72174","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:24:06.680Z"}
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: DELETE /orders/ORD-72174 request body: None
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-72174 HTTP/1.1" 200 44
+2026-09-13 02:54:06 [INFO] utilities.api_client: DELETE /orders/ORD-72174 -> 200 (2ms)
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: DELETE /orders/ORD-72174 response body: {"orderId":"ORD-72174","status":"CANCELLED"}
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-08509e35', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:54:06 [INFO] utilities.api_client: POST /orders -> 202 (3ms) corr_id=cf56ec38-fd76-4459-871a-1109ec7a7a69
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-84918","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:24:06.687Z"}
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: GET /orders/ORD-84918 request body: None
+2026-09-13 02:54:06 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-84918 HTTP/1.1" 200 334
+2026-09-13 02:54:06 [INFO] utilities.api_client: GET /orders/ORD-84918 -> 200 (1ms)
+2026-09-13 02:54:06 [DEBUG] utilities.api_client: GET /orders/ORD-84918 response body: {"orderId":"ORD-84918","customerId":"CUST-08509e35","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:06.687Z","createdTimestamp":1789248246687}
+2026-09-13 02:54:07 [DEBUG] utilities.api_client: GET /orders/ORD-84918 request body: None
+2026-09-13 02:54:07 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-84918 HTTP/1.1" 200 334
+2026-09-13 02:54:07 [INFO] utilities.api_client: GET /orders/ORD-84918 -> 200 (4ms)
+2026-09-13 02:54:07 [DEBUG] utilities.api_client: GET /orders/ORD-84918 response body: {"orderId":"ORD-84918","customerId":"CUST-08509e35","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:06.687Z","createdTimestamp":1789248246687}
+2026-09-13 02:54:08 [DEBUG] utilities.api_client: GET /orders/ORD-84918 request body: None
+2026-09-13 02:54:08 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-84918 HTTP/1.1" 200 334
+2026-09-13 02:54:08 [INFO] utilities.api_client: GET /orders/ORD-84918 -> 200 (4ms)
+2026-09-13 02:54:08 [DEBUG] utilities.api_client: GET /orders/ORD-84918 response body: {"orderId":"ORD-84918","customerId":"CUST-08509e35","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:06.687Z","createdTimestamp":1789248246687}
+2026-09-13 02:54:09 [DEBUG] utilities.api_client: GET /orders/ORD-84918 request body: None
+2026-09-13 02:54:09 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-84918 HTTP/1.1" 200 334
+2026-09-13 02:54:09 [INFO] utilities.api_client: GET /orders/ORD-84918 -> 200 (4ms)
+2026-09-13 02:54:09 [DEBUG] utilities.api_client: GET /orders/ORD-84918 response body: {"orderId":"ORD-84918","customerId":"CUST-08509e35","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:06.687Z","createdTimestamp":1789248246687}
+2026-09-13 02:54:10 [DEBUG] utilities.api_client: GET /orders/ORD-84918 request body: None
+2026-09-13 02:54:10 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-84918 HTTP/1.1" 200 334
+2026-09-13 02:54:10 [INFO] utilities.api_client: GET /orders/ORD-84918 -> 200 (4ms)
+2026-09-13 02:54:10 [DEBUG] utilities.api_client: GET /orders/ORD-84918 response body: {"orderId":"ORD-84918","customerId":"CUST-08509e35","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:06.687Z","createdTimestamp":1789248246687}
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: GET /orders/ORD-84918 request body: None
+2026-09-13 02:54:11 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-84918 HTTP/1.1" 200 337
+2026-09-13 02:54:11 [INFO] utilities.api_client: GET /orders/ORD-84918 -> 200 (1ms)
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: GET /orders/ORD-84918 response body: {"orderId":"ORD-84918","customerId":"CUST-08509e35","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:06.687Z","createdTimestamp":1789248246687}
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: DELETE /orders/ORD-84918 request body: None
+2026-09-13 02:54:11 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-84918 HTTP/1.1" 200 44
+2026-09-13 02:54:11 [INFO] utilities.api_client: DELETE /orders/ORD-84918 -> 200 (1ms)
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: DELETE /orders/ORD-84918 response body: {"orderId":"ORD-84918","status":"CANCELLED"}
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-22f4e517', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:54:11 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:54:11 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:54:11 [INFO] utilities.api_client: POST /orders -> 202 (1ms) corr_id=91e6f75a-3134-40ad-a411-6390a804c503
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-96217","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:24:11.735Z"}
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:11 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 334
+2026-09-13 02:54:11 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (1ms)
+2026-09-13 02:54:11 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:12 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:12 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 334
+2026-09-13 02:54:12 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (5ms)
+2026-09-13 02:54:12 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:13 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:13 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 334
+2026-09-13 02:54:13 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:13 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:14 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:14 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 334
+2026-09-13 02:54:14 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (2ms)
+2026-09-13 02:54:14 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:15 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:15 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 334
+2026-09-13 02:54:15 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (3ms)
+2026-09-13 02:54:15 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PENDING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:16 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:16 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:16 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:16 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:17 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:17 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:17 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (5ms)
+2026-09-13 02:54:17 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:18 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:18 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:18 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (5ms)
+2026-09-13 02:54:18 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:19 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:19 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:19 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:19 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:20 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:20 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:20 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (3ms)
+2026-09-13 02:54:20 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:21 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:21 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:21 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (2ms)
+2026-09-13 02:54:21 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:22 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:22 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:22 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:22 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:23 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:23 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:23 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (3ms)
+2026-09-13 02:54:23 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:24 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:24 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:24 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:24 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:25 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:25 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 337
+2026-09-13 02:54:25 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:25 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"PROCESSING","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: GET /orders/ORD-96217 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-96217 HTTP/1.1" 200 336
+2026-09-13 02:54:26 [INFO] utilities.api_client: GET /orders/ORD-96217 -> 200 (4ms)
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: GET /orders/ORD-96217 response body: {"orderId":"ORD-96217","customerId":"CUST-22f4e517","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"COMPLETED","createdAt":"2026-09-12T21:24:11.735Z","createdTimestamp":1789248251735}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-96217 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-96217 HTTP/1.1" 409 41
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-96217 -> 409 (3ms)
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-96217 error body: {"error":"Cannot cancel completed order"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-85b31f66', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:54:26 [INFO] utilities.api_client: POST /orders -> 202 (4ms) corr_id=dd556c4d-c04a-4b90-b403-99166b9e7e92
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-95064","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:24:26.874Z"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-95064 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-95064 HTTP/1.1" 200 44
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-95064 -> 200 (2ms)
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-95064 response body: {"orderId":"ORD-95064","status":"CANCELLED"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-95064 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-95064 HTTP/1.1" 200 44
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-95064 -> 200 (1ms)
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-95064 response body: {"orderId":"ORD-95064","status":"CANCELLED"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-99999999 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-99999999 HTTP/1.1" 404 27
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-99999999 -> 404 (2ms)
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-99999999 error body: {"error":"Order not found"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: POST /orders request body: {'customerId': 'CUST-72ab8e25', 'items': [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], 'shippingAddress': '221B Baker Street, London, UK'}
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:3000
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "POST /v1/orders HTTP/1.1" 202 113
+2026-09-13 02:54:26 [INFO] utilities.api_client: POST /orders -> 202 (3ms) corr_id=77520e1d-7c80-4f07-84fd-c87460e0991e
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: POST /orders response body: {"orderId":"ORD-11776","status":"PENDING","totalAmount":89.47999999999999,"createdAt":"2026-09-12T21:24:26.885Z"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-11776 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "DELETE /v1/orders/ORD-11776 HTTP/1.1" 200 44
+2026-09-13 02:54:26 [INFO] utilities.api_client: DELETE /orders/ORD-11776 -> 200 (2ms)
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: DELETE /orders/ORD-11776 response body: {"orderId":"ORD-11776","status":"CANCELLED"}
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:26 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:26 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (1ms)
+2026-09-13 02:54:26 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:27 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:27 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:27 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (5ms)
+2026-09-13 02:54:27 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:28 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:28 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:28 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:28 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:29 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:29 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:29 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:29 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:30 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:30 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:30 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:30 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:31 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:31 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:31 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (3ms)
+2026-09-13 02:54:31 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:32 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:32 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:32 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:32 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:33 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:33 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:33 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (3ms)
+2026-09-13 02:54:33 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:34 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:34 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:34 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:34 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:35 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:35 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:35 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:35 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:36 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:36 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:36 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:36 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:37 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:37 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:37 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:37 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:38 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:38 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:38 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (7ms)
+2026-09-13 02:54:38 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:39 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:39 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:39 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:39 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:40 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:41 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:41 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:41 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:42 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:42 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:42 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:42 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:43 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:43 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:43 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:43 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:44 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:44 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:44 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (3ms)
+2026-09-13 02:54:44 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:44 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:44 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:44 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (4ms)
+2026-09-13 02:54:44 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}
+2026-09-13 02:54:44 [DEBUG] utilities.api_client: GET /orders/ORD-11776 request body: None
+2026-09-13 02:54:44 [DEBUG] urllib3.connectionpool: http://localhost:3000 "GET /v1/orders/ORD-11776 HTTP/1.1" 200 336
+2026-09-13 02:54:44 [INFO] utilities.api_client: GET /orders/ORD-11776 -> 200 (2ms)
+2026-09-13 02:54:44 [DEBUG] utilities.api_client: GET /orders/ORD-11776 response body: {"orderId":"ORD-11776","customerId":"CUST-72ab8e25","items":[{"sku":"SKU-1001","quantity":2,"unitPrice":19.99},{"sku":"SKU-1002","quantity":1,"unitPrice":49.5}],"shippingAddress":"221B Baker Street, London, UK","totalAmount":89.47999999999999,"status":"CANCELLED","createdAt":"2026-09-12T21:24:26.885Z","createdTimestamp":1789248266885}

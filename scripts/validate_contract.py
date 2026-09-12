@@ -12,20 +12,31 @@ import sys
 import uuid
 from pathlib import Path
 
+# This script is executed directly (`python scripts/validate_contract.py`), so the
+# repo root has to be on sys.path before the first-party imports below can resolve.
+# They therefore sit after executable code on purpose -- E402 is suppressed rather
+# than worked around, because the alternative (a package-relative launch) would make
+# the CI invocation less obvious than the lint rule is worth.
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from config.settings import Settings
-from utilities.api_client import ApiError, AuthClient, ExportClient, OrderClient
-from utilities.logger import get_logger
+from config.settings import Settings  # noqa: E402
+from utilities.api_client import ApiError, AuthClient, ExportClient, OrderClient  # noqa: E402
+from utilities.logger import configure_stream_logging, get_logger  # noqa: E402
 
 logger = get_logger(__name__)
 
+# This script runs outside pytest, so nothing else would attach a handler and
+# every record below WARNING would be discarded silently.
+configure_stream_logging()
+
 REQUIRED_FIELDS = {
-    "POST /auth/login": {"token"},
+    "POST /auth/login": {"token", "expiresIn"},
     "POST /orders": {"orderId", "status", "totalAmount", "createdAt"},
-    "GET /orders/:id": {"orderId", "customerId", "items", "shippingAddress", "totalAmount", "status"},
-    "POST /exports": {"jobId", "status"},
-    "GET /exports/:id": {"jobId", "status"},
+    "GET /orders/:id": {
+        "orderId", "customerId", "items", "shippingAddress", "totalAmount", "status", "createdAt",
+    },
+    "POST /exports": {"jobId", "status", "pollIntervalSeconds"},
+    "GET /exports/:id": {"jobId", "status", "downloadUrl"},
 }
 
 

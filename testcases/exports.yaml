@@ -1,21 +1,38 @@
+# Every case uses the same `expected.status` key for the HTTP status code, so a
+# reader never has to work out which bespoke key a given case checks.
+# The interaction each id performs lives in CASE_HANDLERS in
+# step_definitions/test_exports.py, and `title` is the test case name rendered
+# in the HTML report.
 cases:
   - id: create_export_returns_job
+    title: Validate that the exports API returns 202 with a job id and poll interval
     tags: [exports, happy, api]
     expected:
       status: 202
       job_status: PROCESSING
+      poll_interval_seconds: 5
+
+  - id: status_while_processing_has_no_download_url
+    title: Validate that the export status API reports an in-flight job as PROCESSING with no download URL
+    tags: [exports, api]
+    expected:
+      status: 200
+      job_status: PROCESSING
 
   - id: download_before_completion_rejected
+    title: Validate that the export download API rejects a download while the job is still processing
     tags: [exports, validation]
     expected:
-      download_status_while_processing: 400
+      status: 400
 
   - id: status_for_unknown_job_is_404
+    title: Validate that the export status API returns 404 for an unknown job id
     tags: [exports, validation, api]
     expected:
-      unknown_job_status_code: 404
+      status: 404
 
   - id: download_for_unknown_job_is_404
+    title: Validate that the export download API returns 404 for an unknown job id
     tags: [exports, validation, api]
     expected:
-      unknown_job_download_status_code: 404
+      status: 404

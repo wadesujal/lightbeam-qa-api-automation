@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>API Test Report — qa</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 24px; background: #0f1115; color: #e6e6e6; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .meta { color: #9aa0a6; font-size: 13px; margin-bottom: 20px; }
+  .totals { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tile { background: #1a1d24; border-radius: 8px; padding: 12px 18px; min-width: 90px; }
+  .tile .n { font-size: 22px; font-weight: 600; }
+  .tile .l { font-size: 12px; color: #9aa0a6; }
+  .passed { color: #4caf50; } .failed { color: #f44336; } .skipped { color: #ffb300; } .error { color: #f44336; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #262a33; vertical-align: top; }
+  th { color: #9aa0a6; font-weight: 500; }
+  tr.failed td { background: rgba(244, 67, 54, 0.06); }
+  .tag { display: inline-block; background: #262a33; border-radius: 4px; padding: 1px 6px; margin: 1px 2px 1px 0; font-size: 11px; color: #b8c0cc; }
+  .title { font-size: 13px; color: #e6e6e6; }
+  .nodeid { display: block; margin: 2px 0 0 0; font-family: ui-monospace, monospace; font-size: 11px; color: #7d8590; }
+  .steps { margin: 6px 0 0 0; padding-left: 18px; font-size: 12px; color: #b8c0cc; }
+  .steps li.failed-step { color: #f44336; }
+  .longrepr { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; color: #f44336; margin-top: 6px; }
+  .capture { margin-top: 8px; }
+  .capture h4 { margin: 8px 0 2px; font-size: 11px; font-weight: 600; color: #9aa0a6; text-transform: uppercase; letter-spacing: .04em; }
+  .capture pre { white-space: pre-wrap; word-break: break-word; margin: 0; padding: 6px 8px; background: #12151b; border-left: 2px solid #2f3540; font-family: ui-monospace, monospace; font-size: 11px; color: #b8c0cc; max-height: 320px; overflow: auto; }
+  details summary { cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>API Test Report</h1>
+  <div class="meta">env=qa · host=Sujals-MacBook-Air.local · python=3.9.6 · generated 2026-09-12T21:24:44+00:00 · duration 113.94s</div>
+
+  <div class="totals">
+    <div class="tile"><div class="n">45</div><div class="l">total</div></div>
+    <div class="tile"><div class="n passed">45</div><div class="l">passed</div></div>
+    <div class="tile"><div class="n failed">0</div><div class="l">failed</div></div>
+    <div class="tile"><div class="n error">0</div><div class="l">error</div></div>
+    <div class="tile"><div class="n skipped">0</div><div class="l">skipped</div></div>
+    <div class="tile"><div class="n">100.0%</div><div class="l">pass rate</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Test case</th><th>Tags</th><th>Outcome</th><th>Duration</th></tr></thead>
+    <tbody>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the login API returns a bearer token and expiry for valid credentials</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_with_valid_credentials_returns_token</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /auth/login with valid credentials (31ms)
+                
+                <ul><li>[passed] status code: expected 200, got 200</li><li>[passed] response includes a non-empty token</li><li>[passed] token is a string</li><li>[passed] response includes 'expiresIn'</li><li>[passed] expiresIn is an integer</li><li>[passed] expiresIn is a positive lifetime</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">smoke</span></td>
+        <td class="passed">passed</td>
+        <td>0.03s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that a freshly issued token is accepted on a protected route</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_token_is_accepted_on_a_protected_route</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">smoke</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the login API rejects a request with no username</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_validation[missing_username]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /auth/login (missing_username) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">auth</span><span class="tag">smoke</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the login API rejects a request with no apiKey</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_validation[missing_api_key]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /auth/login (missing_api_key) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">auth</span><span class="tag">smoke</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the login API rejects a request with an empty body</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_validation[empty_body]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /auth/login (empty_body) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">auth</span><span class="tag">smoke</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the login API rejects a username that is present but empty</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_validation[empty_username]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /auth/login (empty_username) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">auth</span><span class="tag">boundary</span><span class="tag">smoke</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the login API rejects an apiKey that is present but empty</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestLogin::test_login_validation[empty_api_key]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /auth/login (empty_api_key) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">auth</span><span class="tag">boundary</span><span class="tag">smoke</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that a protected route returns 401 when no Authorization header is sent</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestAuthorizationEnforcement::test_protected_route_without_token_returns_401</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">regression</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that a protected route returns 401 for a non-Bearer authorization scheme</span></summary>
+            <code class="nodeid">step_definitions/test_auth.py::TestAuthorizationEnforcement::test_protected_route_with_non_bearer_scheme_returns_401</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">regression</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the exports API returns 202 with a job id and poll interval</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_fast_paths[create_export_returns_job]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /exports (2ms)
+                
+                <ul><li>[passed] status code: expected 202, got 202</li><li>[passed] jobId present</li><li>[passed] initial job status: expected 'PROCESSING', got 'PROCESSING'</li><li>[passed] pollIntervalSeconds: expected 5, got 5</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">api</span><span class="tag">exports</span><span class="tag">happy</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the export status API reports an in-flight job as PROCESSING with no download URL</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_fast_paths[status_while_processing_has_no_download_url]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                GET status while still PROCESSING (1ms)
+                
+                <ul><li>[passed] status code: expected 200, got 200</li><li>[passed] jobId echoed: expected 'JOB-33133', got 'JOB-33133'</li><li>[passed] job still PROCESSING: expected 'PROCESSING', got 'PROCESSING'</li><li>[passed] no downloadUrl while incomplete</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">api</span><span class="tag">exports</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the export download API rejects a download while the job is still processing</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_fast_paths[download_before_completion_rejected]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                GET download while still PROCESSING (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">exports</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the export status API returns 404 for an unknown job id</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_fast_paths[status_for_unknown_job_is_404]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                GET status for unknown jobId (1ms)
+                
+                <ul><li>[passed] status code: expected 404, got 404</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">api</span><span class="tag">exports</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the export download API returns 404 for an unknown job id</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_fast_paths[download_for_unknown_job_is_404]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                GET download for unknown jobId (1ms)
+                
+                <ul><li>[passed] status code: expected 404, got 404</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">api</span><span class="tag">exports</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the exports API returns 401 for an unauthenticated create request</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_create_export_without_auth_returns_401</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">exports</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the export status and download APIs return 401 without authentication</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_status_and_download_require_auth</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">exports</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that an export completes after ~60s and downloads a valid CSV payload</span></summary>
+            <code class="nodeid">step_definitions/test_exports.py::test_export_completes_and_download_returns_valid_csv</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                wait for export COMPLETED (~60s) (60259ms)
+                
+                <ul><li>[passed] completed job exposes a downloadUrl</li></ul>
+                
+              </li>
+              
+              <li class="">
+                GET download once COMPLETED (4ms)
+                
+                <ul><li>[passed] status code: expected 200, got 200</li><li>[passed] Content-Type is text/csv</li><li>[passed] response is served as an attachment</li><li>[passed] attachment filename is a .csv</li><li>[passed] CSV has a header row plus at least one data row</li><li>[passed] CSV header: expected ['orderId', 'status', 'totalAmount'], got ['orderId', 'status', 'totalAmount']</li><li>[passed] every data row has 3 columns (ragged rows: [])</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">exports</span><span class="tag">slow</span></td>
+        <td class="passed">passed</td>
+        <td>60.27s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that totalAmount equals the sum of quantity x unitPrice for any generated item list</span></summary>
+            <code class="nodeid">step_definitions/test_invariants.py::test_total_amount_holds_for_any_item_list</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">hypothesis</span><span class="tag">invariant</span><span class="tag">property</span></td>
+        <td class="passed">passed</td>
+        <td>0.11s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API creates a multi-line order and returns 202 with status PENDING</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[valid_multi_item_order]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (valid_multi_item_order) (1ms)
+                
+                <ul><li>[passed] status code: expected 202, got 202</li><li>[passed] response includes 'orderId'</li><li>[passed] response includes 'status'</li><li>[passed] response includes 'totalAmount'</li><li>[passed] response includes 'createdAt'</li><li>[passed] initial status: expected 'PENDING', got 'PENDING'</li><li>[passed] totalAmount matches independently computed total: expected 89.47999999999999 ± 8.9e-05, got 89.47999999999999</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">api</span><span class="tag">happy</span><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects an order with no customerId</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[missing_customer_id]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (missing_customer_id) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects an order with no items</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[missing_items]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (missing_items) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects an order with an empty items array</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[empty_items_array]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (empty_items_array) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">orders</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects an order with no shippingAddress</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[missing_shipping_address]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (missing_shipping_address) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API calculates totalAmount correctly for fractional unit prices</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[decimal_pricing]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (decimal_pricing) (1ms)
+                
+                <ul><li>[passed] status code: expected 202, got 202</li><li>[passed] response includes 'orderId'</li><li>[passed] response includes 'status'</li><li>[passed] response includes 'totalAmount'</li><li>[passed] response includes 'createdAt'</li><li>[passed] initial status: expected 'PENDING', got 'PENDING'</li><li>[passed] totalAmount matches independently computed total: expected 29.985 ± 3.0e-05, got 29.985</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">happy</span><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects an order where items is a string instead of an array</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[items_wrong_type]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (items_wrong_type) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">orders</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects an order where items is null</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[null_items]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (null_items) (1ms)
+                
+                <ul><li>[passed] status code: expected 400, got 400</li><li>[passed] error field present</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">orders</span><span class="tag">validation</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API accepts a zero-quantity line and totals it as zero</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[zero_quantity_line]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (zero_quantity_line) (2ms)
+                
+                <ul><li>[passed] status code: expected 202, got 202</li><li>[passed] response includes 'orderId'</li><li>[passed] response includes 'status'</li><li>[passed] response includes 'totalAmount'</li><li>[passed] response includes 'createdAt'</li><li>[passed] initial status: expected 'PENDING', got 'PENDING'</li><li>[passed] totalAmount matches independently computed total: expected 0.0 ± 1.0e-12, got 0</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API creates a single-line order and totals it correctly</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_order_creation[single_item_order]</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (single_item_order) (1ms)
+                
+                <ul><li>[passed] status code: expected 202, got 202</li><li>[passed] response includes 'orderId'</li><li>[passed] response includes 'status'</li><li>[passed] response includes 'totalAmount'</li><li>[passed] response includes 'createdAt'</li><li>[passed] initial status: expected 'PENDING', got 'PENDING'</li><li>[passed] totalAmount matches independently computed total: expected 0.01 ± 1.0e-08, got 0.01</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">happy</span><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects a request with no X-Correlation-ID header</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_create_order_without_correlation_id_returns_400</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API rejects a request with an empty X-Correlation-ID header</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_create_order_with_empty_correlation_id_returns_400</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">boundary</span><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns 401 for an unauthenticated create request</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::test_create_order_without_auth_returns_401</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API currently accepts a negative quantity and returns a negative total (documented defect)</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::TestKnownServerValidationGaps::test_negative_quantity_is_currently_accepted</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">regression</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API currently returns a null totalAmount for an item with no quantity (documented defect)</span></summary>
+            <code class="nodeid">step_definitions/test_orders_create.py::TestKnownServerValidationGaps::test_item_without_quantity_yields_a_null_total</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">regression</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns 404 for an order that does not exist</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_get_nonexistent_order_returns_404</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">smoke</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns 401 for an unauthenticated read request</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_get_order_without_auth_returns_401</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns 401 for an unauthenticated cancel request</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancel_order_without_auth_returns_401</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns every persisted field for a created order</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_get_order_returns_the_persisted_order</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                POST /orders (1ms)
+                
+              </li>
+              
+              <li class="">
+                GET /orders/:orderId (1ms)
+                
+                <ul><li>[passed] status code: expected 200, got 200</li><li>[passed] orderId: expected 'ORD-43839', got 'ORD-43839'</li><li>[passed] customerId round-trips: expected 'CUST-59ff8c4c', got 'CUST-59ff8c4c'</li><li>[passed] items round-trip unchanged: expected [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}], got [{'sku': 'SKU-1001', 'quantity': 2, 'unitPrice': 19.99}, {'sku': 'SKU-1002', 'quantity': 1, 'unitPrice': 49.5}]</li><li>[passed] shippingAddress round-trips: expected '221B Baker Street, London, UK', got '221B Baker Street, London, UK'</li><li>[passed] createdAt matches the creation response: expected '2026-09-12T21:23:51.533Z', got '2026-09-12T21:23:51.533Z'</li><li>[passed] totalAmount matches independently computed total: expected 89.47999999999999 ± 8.9e-05, got 89.47999999999999</li><li>[passed] status is a known state</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">smoke</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that repeated reads do not advance the order state</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_get_order_does_not_itself_mutate_state</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.01s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that an order advances PENDING to PROCESSING to COMPLETED on elapsed time</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_order_transitions_pending_to_processing_to_completed</code>
+            
+            <ul class="steps">
+              
+              <li class="">
+                wait for PROCESSING (5048ms)
+                
+                <ul><li>[passed] status after first transition: expected 'PROCESSING', got 'PROCESSING'</li><li>[passed] orderId unchanged: expected 'ORD-27668', got 'ORD-27668'</li></ul>
+                
+              </li>
+              
+              <li class="">
+                wait for COMPLETED (10086ms)
+                
+                <ul><li>[passed] final status: expected 'COMPLETED', got 'COMPLETED'</li></ul>
+                
+              </li>
+              
+            </ul>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">slow</span></td>
+        <td class="passed">passed</td>
+        <td>15.14s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API cancels an order while it is PENDING</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancel_order_while_pending_succeeds</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">smoke</span></td>
+        <td class="passed">passed</td>
+        <td>0.01s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API cancels an order while it is PROCESSING</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancel_order_while_processing_succeeds</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">slow</span></td>
+        <td class="passed">passed</td>
+        <td>5.05s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns 409 when cancelling a COMPLETED order</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancel_order_after_completed_returns_409</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">slow</span></td>
+        <td class="passed">passed</td>
+        <td>15.13s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that cancelling an already-cancelled order still returns 200 CANCELLED</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancelling_twice_is_idempotent</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.01s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that the orders API returns 404 when cancelling an order that does not exist</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancel_nonexistent_order_returns_404</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span></td>
+        <td class="passed">passed</td>
+        <td>0.00s</td>
+      </tr>
+    
+      <tr class="passed">
+        <td>
+          <details>
+            <summary><span class="title">Validate that a CANCELLED order never advances to PROCESSING or COMPLETED</span></summary>
+            <code class="nodeid">step_definitions/test_orders_lifecycle.py::test_cancelled_order_never_advances_state</code>
+            
+            
+            
+          </details>
+        </td>
+        <td><span class="tag">orders</span><span class="tag">slow</span></td>
+        <td class="passed">passed</td>
+        <td>18.01s</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</body>
+</html>

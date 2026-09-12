@@ -2,8 +2,13 @@
 # any non-empty username/apiKey succeeds. These cases cover the 400 paths;
 # the success path is exercised directly in test_auth.py since it needs to
 # capture the token for later fixtures rather than just assert a status.
+#
+# `title` is mandatory on every case: it is the test case name shown in the
+# HTML report, so the YAML stays the single source of truth for what each
+# scenario claims to validate.
 cases:
   - id: missing_username
+    title: Validate that the login API rejects a request with no username
     tags: [auth, validation]
     request:
       body: { apiKey: "some-key" }
@@ -11,6 +16,7 @@ cases:
       status: 400
 
   - id: missing_api_key
+    title: Validate that the login API rejects a request with no apiKey
     tags: [auth, validation]
     request:
       body: { username: "some-user" }
@@ -18,8 +24,27 @@ cases:
       status: 400
 
   - id: empty_body
+    title: Validate that the login API rejects a request with an empty body
     tags: [auth, validation]
     request:
       body: {}
+    expected:
+      status: 400
+
+  # Present-but-empty is a distinct boundary from absent: the server's check is
+  # falsy-based (`!username`), so "" must be rejected the same way a missing key is.
+  - id: empty_username
+    title: Validate that the login API rejects a username that is present but empty
+    tags: [auth, validation, boundary]
+    request:
+      body: { username: "", apiKey: "some-key" }
+    expected:
+      status: 400
+
+  - id: empty_api_key
+    title: Validate that the login API rejects an apiKey that is present but empty
+    tags: [auth, validation, boundary]
+    request:
+      body: { username: "some-user", apiKey: "" }
     expected:
       status: 400

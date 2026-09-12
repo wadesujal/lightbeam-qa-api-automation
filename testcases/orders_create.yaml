@@ -1,8 +1,12 @@
 # customerId/items/shippingAddress are generated per-case by
 # payload_builders.create_order_payload() with these overrides applied --
 # see step_definitions/test_orders_create.py.
+#
+# `title` is the test case name rendered in the HTML report and is mandatory
+# on every case.
 cases:
   - id: valid_multi_item_order
+    title: Validate that the orders API creates a multi-line order and returns 202 with status PENDING
     tags: [orders, happy, api]
     overrides: {}
     expected:
@@ -10,32 +14,72 @@ cases:
       order_status: PENDING
 
   - id: missing_customer_id
+    title: Validate that the orders API rejects an order with no customerId
     tags: [orders, validation]
     overrides: { drop: [customerId] }
     expected:
       status: 400
 
   - id: missing_items
+    title: Validate that the orders API rejects an order with no items
     tags: [orders, validation]
     overrides: { drop: [items] }
     expected:
       status: 400
 
   - id: empty_items_array
+    title: Validate that the orders API rejects an order with an empty items array
     tags: [orders, validation, boundary]
     overrides: { items: [] }
     expected:
       status: 400
 
   - id: missing_shipping_address
+    title: Validate that the orders API rejects an order with no shippingAddress
     tags: [orders, validation]
     overrides: { drop: [shippingAddress] }
     expected:
       status: 400
 
   - id: decimal_pricing
+    title: Validate that the orders API calculates totalAmount correctly for fractional unit prices
     tags: [orders, happy, boundary]
     overrides: { items: [{ sku: "SKU-X", quantity: 3, unitPrice: 9.995 }] }
+    expected:
+      status: 202
+      order_status: PENDING
+
+  # `items` present but not an array -- the server checks Array.isArray, so a
+  # string must be rejected rather than iterated.
+  - id: items_wrong_type
+    title: Validate that the orders API rejects an order where items is a string instead of an array
+    tags: [orders, validation, boundary]
+    overrides: { items: "SKU-1001" }
+    expected:
+      status: 400
+
+  - id: null_items
+    title: Validate that the orders API rejects an order where items is null
+    tags: [orders, validation, boundary]
+    overrides: { items: null }
+    expected:
+      status: 400
+
+  # Zero-quantity line: a legitimate boundary for the totalAmount formula
+  # (accepted, total 0) rather than a validation failure.
+  - id: zero_quantity_line
+    title: Validate that the orders API accepts a zero-quantity line and totals it as zero
+    tags: [orders, boundary]
+    overrides: { items: [{ sku: "SKU-Z", quantity: 0, unitPrice: 10.0 }] }
+    expected:
+      status: 202
+      order_status: PENDING
+
+  # Single-item order: guards the reduce() against an off-by-one on one element.
+  - id: single_item_order
+    title: Validate that the orders API creates a single-line order and totals it correctly
+    tags: [orders, happy, boundary]
+    overrides: { items: [{ sku: "SKU-ONE", quantity: 1, unitPrice: 0.01 }] }
     expected:
       status: 202
       order_status: PENDING
