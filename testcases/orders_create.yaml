@@ -1,0 +1,41 @@
+# customerId/items/shippingAddress are generated per-case by
+# payload_builders.create_order_payload() with these overrides applied --
+# see step_definitions/test_orders_create.py.
+cases:
+  - id: valid_multi_item_order
+    tags: [orders, happy, api]
+    overrides: {}
+    expected:
+      status: 202
+      order_status: PENDING
+
+  - id: missing_customer_id
+    tags: [orders, validation]
+    overrides: { drop: [customerId] }
+    expected:
+      status: 400
+
+  - id: missing_items
+    tags: [orders, validation]
+    overrides: { drop: [items] }
+    expected:
+      status: 400
+
+  - id: empty_items_array
+    tags: [orders, validation, boundary]
+    overrides: { items: [] }
+    expected:
+      status: 400
+
+  - id: missing_shipping_address
+    tags: [orders, validation]
+    overrides: { drop: [shippingAddress] }
+    expected:
+      status: 400
+
+  - id: decimal_pricing
+    tags: [orders, happy, boundary]
+    overrides: { items: [{ sku: "SKU-X", quantity: 3, unitPrice: 9.995 }] }
+    expected:
+      status: 202
+      order_status: PENDING

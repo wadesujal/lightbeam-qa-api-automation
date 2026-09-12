@@ -33,17 +33,27 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install ruff black
 
-      - name: Run fast (smoke + non-slow) suite
-        run: pytest -m "not slow" --html=reports/report.html --self-contained-html
+      - name: Lint
+        run: |
+          ruff check .
+          black --check .
 
-      - name: Run full suite (includes async/slow tests)
-        run: pytest --html=reports/report-full.html --self-contained-html
+      - name: Contract check (fails fast if the mock server's response shape drifted)
+        run: python scripts/validate_contract.py
+
+      - name: Fast suite (parallel, excludes real-time async waits)
+        run: pytest -n auto -m "not slow" --html-report=reports/report-fast.html
+
+      - name: Full suite (includes real ~5s/15s/60s async waits)
+        run: pytest --html-report=reports/report-full.html
 
       - name: Upload HTML reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pytest-html-reports
-          path: reports/*.html
+          path: reports/**/*.html

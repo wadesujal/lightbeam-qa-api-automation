@@ -1,0 +1,24 @@
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["step_definitions"]
+markers = [
+    "smoke: fast, high-value checks safe to run on every PR",
+    "orders: tests covering the /orders endpoints",
+    "exports: tests covering the /exports endpoints",
+    "auth: tests covering the /auth endpoints",
+    "api: scenarios verifying the API response contract",
+    "regression: broader negative/edge-case coverage",
+    "validation: payload/field validation failures",
+    "boundary: edge-of-input scenarios",
+    "happy: happy-path scenarios",
+    "invariant: properties that must hold for any valid input",
+    "property: hypothesis-driven property tests",
+    "slow: tests that wait out real async timing (roughly 15-75s) -- excluded from smoke runs",
+]
+addopts = "-ra --strict-markers"
+
+[tool.ruff]
+line-length = 100
+
+[tool.black]
+line-length = 100

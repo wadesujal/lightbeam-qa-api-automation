@@ -1,0 +1,21 @@
+cases:
+  - id: create_export_returns_job
+    tags: [exports, happy, api]
+    expected:
+      status: 202
+      job_status: PROCESSING
+
+  - id: download_before_completion_rejected
+    tags: [exports, validation]
+    expected:
+      download_status_while_processing: 400
+
+  - id: status_for_unknown_job_is_404
+    tags: [exports, validation, api]
+    expected:
+      unknown_job_status_code: 404
+
+  - id: download_for_unknown_job_is_404
+    tags: [exports, validation, api]
+    expected:
+      unknown_job_download_status_code: 404

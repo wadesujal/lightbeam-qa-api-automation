@@ -1,3 +1,13 @@
+"""Reusable async-wait utility.
+
+The reference framework's domain (wallet transfers) didn't need this --
+its state changes were synchronous. This assignment is built around
+long-running asynchronous state (order lifecycle, export jobs), so this
+module is the one piece of core infrastructure added beyond the reference
+layout. It is used by every test that waits on a state transition; no test
+anywhere in this suite uses a fixed time.sleep().
+"""
+
 import time
 from dataclasses import dataclass
 from typing import Any, Callable
@@ -24,14 +34,9 @@ def wait_for_condition(
 ) -> PollResult:
     """Poll poll_fn() until predicate(result) is truthy, or raise PollTimeoutError.
 
-    This is the ONE reusable wait primitive for every asynchronous state
-    transition in this framework (order status, export job status). It:
-      - returns the instant the predicate is satisfied -- never over-waits
-      - is always timeout-bound -- never an infinite loop
-      - raises a diagnostic error (last value, elapsed time, attempt count)
-        on timeout instead of a bare assertion failure
-
-    Do not replace this with time.sleep(N) anywhere in the test suite.
+    - Returns the instant the predicate is satisfied -- never over-waits.
+    - Always timeout-bound -- never an infinite loop.
+    - Raises a diagnostic error (last value, elapsed time, attempts) on timeout.
     """
     start = time.monotonic()
     attempts = 0

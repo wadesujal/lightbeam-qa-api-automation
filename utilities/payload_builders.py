@@ -1,9 +1,12 @@
+"""Test data factories, independent of any YAML case -- used both by the
+YAML-driven tests (to fill in dynamic fields like customerId) and by the
+non-YAML lifecycle tests (state transition, cancellation) that need a
+freshly created order per test."""
+
 import uuid
 
 
 def create_order_payload(**overrides) -> dict:
-    """Independently generated, non-colliding order payload for every test.
-    Pass overrides (e.g. items=[]) to build negative/boundary cases without duplicating this."""
     default_items = [
         {"sku": "SKU-1001", "quantity": 2, "unitPrice": 19.99},
         {"sku": "SKU-1002", "quantity": 1, "unitPrice": 49.50},
@@ -18,14 +21,14 @@ def create_order_payload(**overrides) -> dict:
 
 
 def compute_expected_total(items: list) -> float:
-    """Mirrors the server's totalAmount formula independently, computed purely from
-    the request we sent -- tests must never trust the server's own reported total blindly."""
+    """Mirrors the server's totalAmount formula independently, computed purely
+    from the request sent -- tests must never trust the server's own total blindly."""
     return sum(item["quantity"] * item["unitPrice"] for item in items)
 
 
 def random_credentials() -> dict:
-    """The mock server only checks that username/apiKey are present (see TEST_PLAN.md) --
-    it does not validate their value -- so random, non-colliding values are sufficient."""
+    """The mock server only checks that username/apiKey are present (see
+    TEST_PLAN.md) -- it never validates their value -- so random values suffice."""
     return {
         "username": f"user_{uuid.uuid4().hex[:8]}",
         "apiKey": f"key_{uuid.uuid4().hex[:12]}",

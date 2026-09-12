@@ -6,5 +6,5 @@ reports/
 .env
 mock-server/node_modules/
 mock-server/package-lock.json
-.DS_Store
 .idea/
+.DS_Store

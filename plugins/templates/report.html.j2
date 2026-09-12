@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>API Test Report — {{ env }}</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 24px; background: #0f1115; color: #e6e6e6; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .meta { color: #9aa0a6; font-size: 13px; margin-bottom: 20px; }
+  .totals { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .tile { background: #1a1d24; border-radius: 8px; padding: 12px 18px; min-width: 90px; }
+  .tile .n { font-size: 22px; font-weight: 600; }
+  .tile .l { font-size: 12px; color: #9aa0a6; }
+  .passed { color: #4caf50; } .failed { color: #f44336; } .skipped { color: #ffb300; } .error { color: #f44336; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #262a33; vertical-align: top; }
+  th { color: #9aa0a6; font-weight: 500; }
+  tr.failed td { background: rgba(244, 67, 54, 0.06); }
+  .tag { display: inline-block; background: #262a33; border-radius: 4px; padding: 1px 6px; margin: 1px 2px 1px 0; font-size: 11px; color: #b8c0cc; }
+  .steps { margin: 6px 0 0 0; padding-left: 18px; font-size: 12px; color: #b8c0cc; }
+  .steps li.failed-step { color: #f44336; }
+  .longrepr { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: 11px; color: #f44336; margin-top: 6px; }
+  details summary { cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>API Test Report</h1>
+  <div class="meta">env={{ env }} · host={{ host }} · python={{ python_version }} · generated {{ generated_at }} · duration {{ duration_s }}s</div>
+
+  <div class="totals">
+    <div class="tile"><div class="n">{{ totals.total }}</div><div class="l">total</div></div>
+    <div class="tile"><div class="n passed">{{ totals.passed }}</div><div class="l">passed</div></div>
+    <div class="tile"><div class="n failed">{{ totals.failed }}</div><div class="l">failed</div></div>
+    <div class="tile"><div class="n error">{{ totals.error }}</div><div class="l">error</div></div>
+    <div class="tile"><div class="n skipped">{{ totals.skipped }}</div><div class="l">skipped</div></div>
+    <div class="tile"><div class="n">{{ totals.pass_pct }}%</div><div class="l">pass rate</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Test</th><th>Tags</th><th>Outcome</th><th>Duration</th></tr></thead>
+    <tbody>
+    {% for r in results %}
+      <tr class="{{ r.outcome }}">
+        <td>
+          <details>
+            <summary>{{ r.nodeid }}</summary>
+            {% if r.steps %}
+            <ul class="steps">
+              {% for s in r.steps %}
+              <li class="{{ 'failed-step' if s.status == 'failed' else '' }}">
+                {{ s.name }} ({{ '%.0f'|format(s.duration_ms) }}ms)
+                {% if s.details %}
+                <ul>{% for d in s.details %}<li>{{ d }}</li>{% endfor %}</ul>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% if r.longrepr %}<div class="longrepr">{{ r.longrepr }}</div>{% endif %}
+          </details>
+        </td>
+        <td>{% for t in r.tags %}<span class="tag">{{ t }}</span>{% endfor %}</td>
+        <td class="{{ r.outcome }}">{{ r.outcome }}</td>
+        <td>{{ '%.2f'|format(r.duration_s) }}s</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

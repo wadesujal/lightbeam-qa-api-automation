@@ -1,27 +1,34 @@
+"""HTTP clients for the mock service.
+
+Unlike the reference framework's dual-mode client (in-process Flask test
+client OR real HTTP), this assignment's SUT is only ever reached over real
+HTTP -- there is no importable in-process app to wrap. So there is a single
+BaseClient centralizing session/auth/retry/logging, with one thin subclass
+per resource. Tests never call `requests.*` directly.
+"""
+
 import time
+import uuid
 
 import requests
 
-from config.config import config
-from src.utils.logger import get_logger, mask_sensitive
+from config.settings import Settings
+from utilities.logger import get_logger, mask_sensitive
 
 logger = get_logger(__name__)
 
 
 class ApiError(Exception):
-    """Raised for transport-level failures (connection errors, exhausted retries) --
-    never for HTTP error status codes, which tests are expected to assert on directly."""
+    """Transport-level failure (connection error, exhausted retries) --
+    never raised for HTTP error status codes, which tests assert on directly."""
 
 
 class BaseClient:
-    """Centralizes base URL, session reuse, auth injection, timeout, retry-on-network-error,
-    and request/response logging. No test and no subclass should call `requests.*` directly --
-    everything goes through this class so behavior (auth, logging, retries) stays in one place."""
-
-    def __init__(self, base_url: str = None, token: str = None, timeout: float = None):
-        self.base_url = (base_url or config.BASE_URL).rstrip("/")
+    def __init__(self, settings: Settings = None, token: str = None):
+        self.settings = settings or Settings.load()
+        self.base_url = self.settings.base_url.rstrip("/")
         self.token = token
-        self.timeout = timeout or config.REQUEST_TIMEOUT
+        self.timeout = self.settings.request_timeout_seconds
         self.session = requests.Session()
 
     def set_token(self, token: str) -> None:
@@ -85,3 +92,33 @@ class BaseClient:
 
     def delete(self, path: str, **kwargs) -> requests.Response:
         return self.request("DELETE", path, **kwargs)
+
+
+class AuthClient(BaseClient):
+    def login(self, username: str, api_key: str):
+        return self.post("/auth/login", json_body={"username": username, "apiKey": api_key})
+
+
+class OrderClient(BaseClient):
+    def create_order(self, payload: dict, correlation_id: str = None, include_correlation_id: bool = True):
+        headers = {}
+        if include_correlation_id:
+            headers["X-Correlation-ID"] = correlation_id or str(uuid.uuid4())
+        return self.post("/orders", json_body=payload, headers=headers)
+
+    def get_order(self, order_id: str):
+        return self.get(f"/orders/{order_id}")
+
+    def delete_order(self, order_id: str):
+        return self.delete(f"/orders/{order_id}")
+
+
+class ExportClient(BaseClient):
+    def create_export(self):
+        return self.post("/exports")
+
+    def get_status(self, job_id: str):
+        return self.get(f"/exports/{job_id}")
+
+    def download(self, job_id: str):
+        return self.get(f"/exports/{job_id}/download")

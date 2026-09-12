@@ -1,0 +1,25 @@
+# Login is presence-checked only by the mock server (see TEST_PLAN.md) --
+# any non-empty username/apiKey succeeds. These cases cover the 400 paths;
+# the success path is exercised directly in test_auth.py since it needs to
+# capture the token for later fixtures rather than just assert a status.
+cases:
+  - id: missing_username
+    tags: [auth, validation]
+    request:
+      body: { apiKey: "some-key" }
+    expected:
+      status: 400
+
+  - id: missing_api_key
+    tags: [auth, validation]
+    request:
+      body: { username: "some-user" }
+    expected:
+      status: 400
+
+  - id: empty_body
+    tags: [auth, validation]
+    request:
+      body: {}
+    expected:
+      status: 400

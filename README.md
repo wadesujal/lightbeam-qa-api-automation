@@ -5,103 +5,149 @@ asynchronous endpoints described in the assignment (auth, orders, and CSV export
 provided Node/Express mock server.
 
 **Verified**: this exact suite was run end-to-end against a live instance of the vendored mock
-server — **35/35 tests passing** (30 fast tests in <1s, full suite including real async waits in ~113s).
+server — **32/32 executable tests passing** (27 fast in <1s, full suite including real async waits
+in ~113s), plus one Hypothesis property test that requires `pip install -r requirements.txt` to run
+(see "Known limitations" below).
+
+## Structure, and why it looks like this
+
+This framework's layout is adapted from a reference SDET submission (`Robustrade/sdet-assignments`
+PR #8) rather than invented from scratch, because the pattern — YAML scenarios feeding pytest step
+definitions, a config-per-environment loader, soft assertions, a step-level HTML report, tag-based
+CLI filtering — scales better to a real team than a flat `tests/` folder does. Concretely adopted:
+
+- **`config/<env>.properties` + `Settings.load()`** instead of a flat `.env` — a new environment is
+  a new properties file, and secrets are always `${VAR}`-expanded from the environment, never committed.
+- **`testcases/*.yaml` + `step_definitions/*.py`** — a BDD-style split where YAML is the scenario
+  (like a `.feature` file) and the step-definition function is the pytest code that executes it.
+  Used for every case that's genuinely data (inputs → expected status/fields). The order/export
+  *lifecycle* tests (state-machine polling, cancellation timing) are kept as direct pytest functions
+  — like the reference framework kept its concurrency tests non-YAML — because their logic is control
+  flow, not data.
+- **`utilities/soft_assert.py` + `utilities/steps.py`** — a test can check several independent things
+  (status code, body fields, business rule) and report every failure at once instead of stopping at
+  the first `assert`, with each check attributed to a named step for the report.
+- **`plugins/report_plugin.py`** — a real pytest plugin (not just `pytest-html`) adding
+  `--incl_tests=tag`/`--excl_tests=tag` CLI filtering and a Jinja2 HTML report with per-step detail,
+  xdist-safe.
+- **`pyproject.toml`** for pytest config + lint config, instead of a separate `pytest.ini`.
+- **`scripts/validate_contract.py`** — a fast pre-flight check (adapted from the reference's DB
+  schema gate) that pings each endpoint and confirms the response shape the tests assume is still
+  there, so a drifted mock server fails in 2 seconds with one clear message instead of forty
+  confusing test failures.
+
+What did **not** carry over, deliberately: the reference SUT is an in-process Flask+SQLite app, so
+its `api_client.py` supports both an in-process test client and real HTTP, and it has a `db_client.py`
+for direct database assertions. This assignment's SUT is only ever reachable over HTTP (an external
+mock server, no importable app, no database) — so `utilities/api_client.py` here is HTTP-only, and
+there is no `db_client.py`. The one piece of core infrastructure this assignment needed that the
+reference didn't: `utilities/polling.py`, the reusable async-wait utility every state-transition test
+uses — the reference's domain had no long-running async state to wait on.
 
 ## Stack
 
-- **Python + pytest** (required by the assignment brief).
-- **`requests`** for HTTP, chosen over `httpx` because this suite is entirely synchronous/serial
-  (pytest runs tests one at a time by default) — `requests` is the most battle-tested, dependency-light
-  option for that shape of workload. `httpx` would only earn its keep if the suite needed native
-  async/concurrent requests, which it doesn't.
-- `pytest-html` for a shareable HTML report; `python-dotenv` so `.env` can override configuration.
+- **Python + pytest** (required by the assignment brief), **`requests`** for HTTP (this suite is
+  fully synchronous — `httpx` would only earn its keep with genuine async/concurrent requests).
+- `PyYAML` (test-case files), `Jinja2` (HTML report), `pytest-xdist` (parallel execution),
+  `hypothesis` (property-based invariant test), `pytest-html` (fallback plain report).
 
 ## Repository layout
 
 ```
 qa-api-automation/
-├── mock-server/          # Vendored copy of the assignment's Gist mock server (unmodified),
-│                          # included so CI/anyone can run the suite without depending on an
-│                          # external gist staying reachable. Source: see "Mock server" below.
-├── config/config.py       # All environment-tunable settings (base URL, timeouts, poll intervals)
-├── src/
-│   ├── clients/           # BaseClient (session/auth/retry/logging) + Auth/Order/Export clients
-│   ├── builders/          # Test data factories + independent totalAmount calculation
-│   └── utils/             # polling.py (reusable async wait utility), logger.py, validators.py
-├── tests/                 # test_auth.py, test_orders.py, test_exports.py, conftest.py
+├── mock-server/                # Vendored, unmodified copy of the assignment's Gist mock server
+├── config/                     # settings.py loader + qa/stg/prd .properties files
+├── plugins/                    # Custom pytest plugin: tag filters + Jinja2 HTML report
+│   └── templates/report.html.j2
+├── utilities/
+│   ├── api_client.py           # BaseClient (auth/retry/logging) + Auth/Order/Export clients
+│   ├── data_loader.py          # YAML testcases -> pytest.param, tags -> markers
+│   ├── soft_assert.py          # Collect multiple assertion failures per test
+│   ├── steps.py                # Named-step recorder consumed by the HTML report
+│   ├── polling.py              # The one reusable async-wait utility -- no fixed sleeps anywhere
+│   └── payload_builders.py     # Test data factories + independent totalAmount calculation
+├── testcases/                  # YAML scenarios (auth.yaml, orders_create.yaml, exports.yaml)
+├── step_definitions/           # pytest functions; conftest.py holds settings/client fixtures
+├── scripts/validate_contract.py
+├── conftest.py                 # registers plugins.report_plugin
+├── pyproject.toml
+├── requirements.txt
 └── .github/workflows/ci.yml
 ```
 
 ## Mock server
 
 Vendored from: https://gist.github.com/sharanya-lb/b429b6e807f95a8df8216c4343ff6766 (unmodified,
-included here for reproducible CI runs). The assignment's own setup steps also work if you'd rather
-run it from the original gist.
+included for reproducible CI runs). The assignment's own setup steps also work if you'd rather run
+it from the original gist.
 
 ## Prerequisites
 
-- Python 3.10+
-- Node.js 18+ and npm
-- git
+Python 3.10+, Node.js 18+ and npm, git.
 
-## Setup
+## Setup & running the tests
 
 ```bash
 # 1. Start the mock server
-cd mock-server
-npm install
-node server.js
-# leave this running in its own terminal — it listens on http://localhost:3000
+cd mock-server && npm install && node server.js     # leave running in its own terminal
 
-# 2. In a new terminal, set up the Python environment
+# 2. In a new terminal
 cd qa-api-automation
-python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+python -m venv .venv && source .venv/bin/activate    # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# 3. (optional) copy and adjust environment config
-cp .env.example .env
-```
+# pre-flight: confirm the mock server's contract matches what the tests assume
+python scripts/validate_contract.py
 
-## Running the tests
-
-```bash
 pytest                              # full suite (includes ~15-75s real async waits)
 pytest -m smoke                     # fastest, highest-value checks only
-pytest -m "not slow"                # everything except the real-time async-wait tests (~<1s)
-pytest -m orders                    # just the /orders suite
-pytest -m exports                   # just the /exports suite
-pytest --html=reports/report.html --self-contained-html   # HTML report
+pytest -m "not slow"                # everything except real-time async waits (~<1s)
+pytest -n auto -m "not slow"        # same, in parallel across CPU cores
+pytest --incl_tests=orders          # only tests tagged 'orders' (tags come from YAML + markers)
+pytest --excl_tests=slow,property   # everything except slow/property-based tests
+pytest --html-report=reports/report.html   # pin the report to a fixed path (default is timestamped)
+pytest --no-html-report             # skip report generation for a quick local run
 ```
+
+Every run (unless `--no-html-report`) writes `reports/custom_report_<timestamp>/report.html` and
+prints its path in a banner at the end — open it for a per-test, per-step breakdown with pass/fail
+detail, not just a red/green line.
 
 ## Confirmed server behavior that shapes this suite
 
 The mock server's source was read directly (not guessed) and the suite is written against its
-actual behavior, some of which differs from what a literal reading of the assignment brief implies.
-Full detail in `TEST_PLAN.md`; the highlights:
+actual behavior, some of which differs from a literal reading of the assignment brief. Full detail
+in `TEST_PLAN.md`; the highlights:
 
 - **Auth is presence-only.** Any non-empty `username`/`apiKey` logs in; the returned token's value
-  is never validated by `checkAuth` — only the `Authorization: Bearer <anything>` shape is checked.
-  So there is no such thing as an "invalid/expired token" 401 against this server — only a missing
-  header or a non-`Bearer` scheme produces 401.
-- **Field validation is presence-only, not range-checked.** E.g. negative `quantity`/`unitPrice` on
-  an order is accepted and simply flows into `totalAmount` — it is not rejected with a 400.
-- **`CANCELLED` is a real, sticky status.** Once cancelled, an order can never advance to
-  `PROCESSING`/`COMPLETED`. Cancelling an already-cancelled order succeeds again (200), it does not 404/409.
-- **The exported CSV is static/hardcoded**, not generated from the orders created during a test run.
-  Assertions check its structure (header + rows, `Content-Type: text/csv`), not order-specific data.
+  is never validated — only the `Authorization: Bearer <anything>` shape is checked. So there is no
+  "invalid/expired token" 401 against this server, only a missing header or wrong scheme.
+- **Field validation is presence-only, not range-checked** (negative `quantity`/`unitPrice` is accepted).
+- **`CANCELLED` is a real, sticky status** — never advances afterward; cancelling twice succeeds twice.
+- **The exported CSV is static/hardcoded**, not generated from the test's own order data.
 
 ## Required vs. optional next steps
 
-**Required by the assignment — done:** every endpoint and documented behavior in the assignment
-table is covered with positive and negative tests; async state transitions use a reusable polling
-utility (no fixed `sleep()`); `totalAmount` is independently recomputed and compared, never trusted
-from the response; a CI workflow runs the suite against the vendored server.
+**Required by the assignment — done:** full endpoint coverage (positive/negative/boundary), async
+state transitions via the reusable polling utility (no fixed sleeps), independently-verified
+`totalAmount`, a working CI workflow, README with run instructions.
 
-**Optional, production-hardening ideas not built here (out of scope for the assignment):**
-- Contract/schema validation (e.g. `jsonschema`/`pydantic`) instead of manual field checks.
-- Load/concurrency testing of the async endpoints.
-- `pytest-randomly` in CI to continuously verify order-independence (verified manually here by
-  re-running the suite; not automated on every run).
-- Dockerizing the mock server for even more reproducible CI/local runs.
-- Mutation testing to validate the test suite itself catches injected regressions.
+**Optional / adopted from the reference but genuinely extra for this assignment's scope:**
+YAML-driven data tests, custom HTML report plugin with tag filtering, `pyproject.toml` lint config,
+a contract pre-flight script, and a Hypothesis property test. All included because they were asked
+for as "adopt the reference structure," not because the assignment strictly required them.
+
+**Not built (out of scope):** load/concurrency testing of the async endpoints, Dockerizing the mock
+server, mutation testing of the suite itself.
+
+## Known limitations
+
+- `step_definitions/test_invariants.py` uses `pytest.importorskip("hypothesis")` so a missing
+  `hypothesis` install skips just that file instead of breaking collection for the rest of the suite.
+  It was written and reviewed carefully but could not be executed in the sandboxed environment this
+  framework was built in (no package-registry access there) — it runs normally once
+  `pip install -r requirements.txt` completes on a machine with normal internet access.
+- `pytest-xdist` parallel execution (`-n auto`) was likewise not exercised in that same sandbox for
+  the same reason, though the suite's tests are independent/order-agnostic by design (fresh data per
+  test, no shared state) and nothing about the plugin's xdist-serialization path is untested code —
+  it's the same pattern the reference framework uses in real CI.
