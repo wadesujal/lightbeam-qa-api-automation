@@ -13,16 +13,20 @@ from utilities.payload_builders import random_credentials
 
 @pytest.fixture(scope="session")
 def settings() -> Settings:
+    """Load settings once per session (env selected via `$TEST_ENV`)."""
     return Settings.load()
 
 
 @pytest.fixture(scope="session")
 def auth_client(settings) -> AuthClient:
+    """An unauthenticated client for the `/auth/login` endpoint itself."""
     return AuthClient(settings=settings)
 
 
 @pytest.fixture(scope="session")
 def auth_token(auth_client) -> str:
+    """Log in once per session with random (but valid-shaped) credentials
+    and return the bearer token, reused by every authenticated test."""
     creds = random_credentials()
     response = auth_client.login(creds["username"], creds["apiKey"])
     assert response.status_code == 200, f"Login failed unexpectedly: {response.text}"
@@ -33,9 +37,11 @@ def auth_token(auth_client) -> str:
 
 @pytest.fixture
 def order_client(settings, auth_token) -> OrderClient:
+    """A fresh, authenticated `OrderClient` for each test."""
     return OrderClient(settings=settings, token=auth_token)
 
 
 @pytest.fixture
 def export_client(settings, auth_token) -> ExportClient:
+    """A fresh, authenticated `ExportClient` for each test."""
     return ExportClient(settings=settings, token=auth_token)

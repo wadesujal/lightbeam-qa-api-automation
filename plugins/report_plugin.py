@@ -32,7 +32,10 @@ from typing import Any
 import pytest
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from utilities.logger import get_logger
 from utilities.steps import StepLog
+
+logger = get_logger(__name__)
 
 STEP_LOG_KEY = pytest.StashKey[StepLog]()
 _REPORT_EXTRA_ATTR = "_api_report_extra"
@@ -42,6 +45,8 @@ _REPORT_EXTRA_ATTR = "_api_report_extra"
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
+    """Register the `--incl_tests`/`--excl_tests`/`--html-report`/
+    `--no-html-report` CLI options under an `api-framework` group."""
     group = parser.getgroup("api-framework")
     group.addoption(
         "--incl_tests", action="store", default="",
@@ -62,6 +67,8 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
 
 def _split(csv: str) -> set:
+    """Split a comma-separated CLI option value into a set of trimmed,
+    non-empty tags."""
     return {t.strip() for t in csv.split(",") if t.strip()}
 
 
@@ -69,6 +76,8 @@ def _split(csv: str) -> set:
 
 
 def pytest_collection_modifyitems(config: pytest.Config, items: list) -> None:
+    """Skip collected items that don't satisfy `--incl_tests`/`--excl_tests`,
+    matched against each item's pytest markers."""
     incl = _split(config.getoption("--incl_tests"))
     excl = _split(config.getoption("--excl_tests"))
     if not incl and not excl:
@@ -90,6 +99,10 @@ def pytest_collection_modifyitems(config: pytest.Config, items: list) -> None:
 
 @pytest.fixture
 def step_log(request: pytest.FixtureRequest) -> StepLog:
+    """Provide a fresh `StepLog` for the current test and stash it on the
+    pytest item so `pytest_runtest_makereport` can pull its steps back out
+    once the test finishes -- xdist-safe since the stash lives on the item,
+    not on shared plugin state."""
     log = StepLog()
     request.node.stash[STEP_LOG_KEY] = log
     return log
@@ -100,6 +113,9 @@ def step_log(request: pytest.FixtureRequest) -> StepLog:
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
+    """After each test phase, attach the test's outcome, tags, and recorded
+    steps to the pytest report object as `_api_report_extra`, so the HTML
+    report can be built from report objects alone."""
     outcome = yield
     report: pytest.TestReport = outcome.get_result()
     if report.when != "call" and report.outcome != "skipped":
@@ -124,11 +140,14 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
 
 
 def pytest_configure(config: pytest.Config) -> None:
+    """Initialize the per-session result accumulator and start timestamp."""
     config._api_results = []
     config._api_started_at = datetime.now(timezone.utc)
 
 
 def pytest_runtest_logreport(report: pytest.TestReport) -> None:
+    """Collect each finished test's `_api_report_extra` into the running
+    session-wide results list consumed at `pytest_sessionfinish`."""
     if report.when != "call" and report.outcome != "skipped":
         return
     extra = getattr(report, _REPORT_EXTRA_ATTR, None)
@@ -143,11 +162,15 @@ _GLOBAL_CONFIG = None
 
 
 def pytest_sessionstart(session: pytest.Session) -> None:
+    """Stash the session's config in a module-level so `pytest_runtest_logreport`
+    can reach it without threading it through every call site."""
     global _GLOBAL_CONFIG
     _GLOBAL_CONFIG = session.config
 
 
 def _current_config():
+    """Return the config stashed by `pytest_sessionstart`, or None before
+    a session has started (defensive; shouldn't happen in practice)."""
     return _GLOBAL_CONFIG
 
 
@@ -155,11 +178,16 @@ def _current_config():
 
 
 def _default_report_path() -> Path:
+    """Build the default timestamped report path used when neither
+    `--html-report` nor `--no-html-report` is passed."""
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     return Path("reports") / f"custom_report_{ts}" / "report.html"
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
+    """Render and write the HTML report once the whole session is done.
+    A failure to render/write the report is logged, not raised -- a broken
+    report must never make an otherwise-good test run look like it failed."""
     if session.config.getoption("--no-html-report"):
         return
 
@@ -189,22 +217,26 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     started = getattr(session.config, "_api_started_at", datetime.now(timezone.utc))
     duration = (datetime.now(timezone.utc) - started).total_seconds()
 
-    env = Environment(
-        loader=FileSystemLoader(str(Path(__file__).parent / "templates")),
-        autoescape=select_autoescape(["html"]),
-    )
-    template = env.get_template("report.html.j2")
-    html = template.render(
-        env=os.environ.get("TEST_ENV", "qa"),
-        host=socket.gethostname(),
-        generated_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        duration_s=f"{duration:.2f}",
-        python_version=platform.python_version(),
-        totals=totals,
-        results=results,
-    )
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(html, encoding="utf-8")
+    try:
+        env = Environment(
+            loader=FileSystemLoader(str(Path(__file__).parent / "templates")),
+            autoescape=select_autoescape(["html"]),
+        )
+        template = env.get_template("report.html.j2")
+        html = template.render(
+            env=os.environ.get("TEST_ENV", "qa"),
+            host=socket.gethostname(),
+            generated_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            duration_s=f"{duration:.2f}",
+            python_version=platform.python_version(),
+            totals=totals,
+            results=results,
+        )
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(html, encoding="utf-8")
+    except Exception:
+        logger.exception("Could not render/write the HTML report to %s -- test results are unaffected.", out)
+        return
 
     abs_path = out.resolve()
     bar = "=" * 78
@@ -217,6 +249,8 @@ def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
 
 
 def _summarise(results: list) -> dict:
+    """Compute pass/fail/error/skipped counts and pass rate for the
+    session's results, for the report header tiles."""
     total = len(results)
     passed = sum(1 for r in results if r["outcome"] == "passed")
     failed = sum(1 for r in results if r["outcome"] == "failed")

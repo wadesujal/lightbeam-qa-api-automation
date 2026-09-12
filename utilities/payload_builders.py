@@ -7,6 +7,10 @@ import uuid
 
 
 def create_order_payload(**overrides) -> dict:
+    """Build a valid order-creation payload with sensible defaults
+    (a fresh random `customerId`, two line items, a fixed shipping
+    address). Any keyword arg overrides or adds a top-level field, which
+    is how negative/boundary cases (e.g. `items=[]`) are constructed."""
     default_items = [
         {"sku": "SKU-1001", "quantity": 2, "unitPrice": 19.99},
         {"sku": "SKU-1002", "quantity": 1, "unitPrice": 49.50},

@@ -9,3 +9,4 @@ mock-server/package-lock.json
 .idea/
 .DS_Store
 .hypothesis/
+_to_delete/

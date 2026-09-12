@@ -13,6 +13,10 @@ CASES = load_cases("orders_create.yaml")
 
 
 def _build_payload(case: dict) -> dict:
+    """Build the request payload for one YAML case: start from the default
+    valid payload, apply `overrides`, then remove any field named in
+    `overrides.drop` -- how "missing field" negative cases are expressed
+    in YAML without needing a bespoke payload per case."""
     overrides = dict(case.get("overrides") or {})
     drop_fields = overrides.pop("drop", [])
     payload = create_order_payload(**overrides)
